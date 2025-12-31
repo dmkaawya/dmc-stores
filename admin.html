@@ -1,0 +1,48 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body { background: #121212; color: #fff; }
+        section { padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #333; padding: 10px; }
+    </style>
+</head>
+<body>
+    <header><!-- Same as index --></header>
+    <section>
+        <h1>Admin Panel</h1>
+        <h2>Direct Orders</h2>
+        <table>
+            <tr><th>Order ID</th><th>Details</th></tr>
+            <!-- Dynamic content via JS -->
+        </table>
+        <h2>Reseller Orders</h2>
+        <table><!-- Similar --></table>
+        <h2>Staff</h2>
+        <ul><!-- List --></ul>
+        <h2>Resellers</h2>
+        <ul><!-- List 14 resellers --></ul>
+        <h2>Customers</h2>
+        <ul><!-- List --></ul>
+        <h2>Profiles</h2>
+        <!-- Edit profiles -->
+        <h2>Generate Invoice</h2>
+        <button onclick="generateInvoice()">Generate</button>
+    </section>
+    <footer><!-- Same --></footer>
+    <script>
+        // Admin logic, access levels
+        const users = [{username: 'admin', password: 'admin123', role: 'owner'}]; // Add 16 users, 14 resellers
+        function generateInvoice() {
+            // Logic to create PDF or text invoice
+            alert('Invoice Generated');
+        }
+        // Send to WP as needed
+    </script>
+</body>
+</html>
