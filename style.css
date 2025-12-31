@@ -1,44 +1,152 @@
+/* Dark Theme - Clean Modern E-commerce Look */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background-color: #0f0f0f;
+  background: #0a0a0a;
   color: #e0e0e0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
 }
-
-.navbar {
-  background-color: #1a1a1a !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
-
-.card {
-  background-color: #1e1e1e;
+header {
+  background: #111;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #00ffff;
+}
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+.nav-links a {
+  color: #e0e0e0;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+.nav-links a:hover {
+  color: #00ffff;
+}
+.hamburger {
+  display: none;
+  font-size: 30px;
+  color: #00ffff;
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: #111;
+    padding: 20px;
+  }
+  .nav-links.active { display: flex; }
+  .hamburger { display: block; }
+}
+button {
+  background: #00ffff;
+  color: #000;
   border: none;
-  transition: all 0.4s;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
 }
-
-.card:hover {
+button:hover {
+  background: #00bfff;
+  transform: translateY(-2px);
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+.product-card {
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0,123,255,0.3);
+  box-shadow: 0 10px 20px rgba(0,255,255,0.2);
 }
-
-.btn-primary {
-  background: linear-gradient(45deg, #007bff, #0056b3);
-  border: none;
+.product-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
 }
-
-.fade-in {
-  animation: fadeIn 1.5s;
+.card-body {
+  padding: 20px;
+  text-align: center;
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.free-delivery {
+  background: #00ff00;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  display: inline-block;
+  margin: 10px 0;
 }
-
 footer {
-  background-color: #1a1a1a;
-  padding: 50px 0 20px;
+  background: #111;
+  padding: 50px 20px;
+  text-align: center;
 }
-
-.carousel-item img {
-  border-radius: 15px;
+.social-icons a {
+  color: #00ffff;
+  font-size: 30px;
+  margin: 0 15px;
+  transition: 0.3s;
 }
+.social-icons a:hover {
+  color: #00bfff;
+}
+form input, form select, form textarea {
+  width: 100%;
+  padding: 12px;
+  background: #222;
+  border: 1px solid #00ffff;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  color: #e0e0e0;
+}
+.slider-container {
+  overflow: hidden;
+  position: relative;
+  margin: 40px 0;
+}
+.slider-inner {
+  display: flex;
+  width: 200%;
+  animation: slide 25s linear infinite;
+}
+.slider-inner .product-card {
+  min-width: 300px;
+  margin: 0 15px;
+}
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+/* Additional styles for sections, forms, tables etc. can be added as needed */
