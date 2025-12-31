@@ -1,0 +1,171 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laaba Kade - Home</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        header {
+            background-color: #1f1f1f;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .mobile-menu {
+                display: block;
+                cursor: pointer;
+            }
+            .mobile-menu.active + ul {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        /* Home Page Styles */
+        .hero {
+            text-align: center;
+            padding: 50px;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .product-swipe {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            animation: swipe 10s infinite linear;
+        }
+        @keyframes swipe {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .product-card {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        .benefits, .feedback {
+            padding: 20px;
+        }
+        .dropship-ad {
+            background: #444;
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            background: #1f1f1f;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Buttons */
+        button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="window.location.href='index.html'">Laaba Kade</div>
+        <div class="mobile-menu" onclick="this.classList.toggle('active')">☰</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="store.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="resell.html">Resell</a></li>
+                <li><a href="login.html">Login/Sign Up</a></li>
+            </ul>
+        </nav>
+        <button onclick="window.location.href='login.html'">Login</button>
+        <button onclick="window.location.href='cart.html'">Cart</button>
+    </header>
+    <section class="hero">
+        <h1>Welcome to Laaba Kade</h1>
+    </section>
+    <section class="product-swipe">
+        <!-- Sample products, add more -->
+        <div class="product-card"><img src="https://via.placeholder.com/200" alt="Product 1"><p>Product 1 - $10</p></div>
+        <div class="product-card"><img src="https://via.placeholder.com/200" alt="Product 2"><p>Product 2 - $15</p></div>
+        <!-- Repeat for 10 products -->
+    </section>
+    <section class="benefits">
+        <h2>Our Benefits</h2>
+        <ul>
+            <li>Fast Delivery</li>
+            <li>Quality Products</li>
+        </ul>
+    </section>
+    <section class="feedback">
+        <h2>Customer Feedback</h2>
+        <p>Great service! - John</p>
+    </section>
+    <section class="dropship-ad">
+        <h2>Join Dropshipping for Extra Income</h2>
+        <button onclick="window.location.href='register.html'">Register</button>
+        <button onclick="window.location.href='login.html'">Login</button>
+        <button>View More Details</button>
+    </section>
+    <footer>
+        <p>Laaba Kade - Your trusted online store.</p>
+        <div>Social Media: <a href="#">Facebook</a> | <a href="#">Instagram</a></div>
+        <a href="rules.html">Rules</a>
+        <form action="https://app.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="c95e74a2-7e94-46a6-b730-f6ce448c01b9">
+            <input type="email" name="email" placeholder="Subscribe">
+            <button type="submit">Subscribe</button>
+        </form>
+        <p>Powered by DMC Group</p>
+        <p>Copyright 2026</p>
+    </footer>
+    <script>
+        // WhatsApp send function for forms
+        function sendToWhatsApp(data) {
+            const wpNumber = '94775048455';
+            const message = encodeURIComponent(JSON.stringify(data));
+            window.open(`https://wa.me/${wpNumber}?text=${message}`);
+        }
+    </script>
+</body>
+</html>
