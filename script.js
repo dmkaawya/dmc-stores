@@ -1,3 +1,6 @@
+let currentUser = null;
+let isReseller = false;
+
 const products = [
   {
     id: 1,
@@ -10,25 +13,17 @@ const products = [
     rating: 4.8,
     freeDelivery: true,
     images: [
-      "https://thumbs.dreamstime.com/b/high-quality-realistic-d-mockup-classic-black-t-shirt-showcasing-both-front-back-views-versatile-template-412906910.jpg",
-      "https://thumbs.dreamstime.com/b/black-t-shirt-mockup-front-back-high-quality-mockup-black-t-shirt-male-model-showcasing-both-front-back-views-409987076.jpg",
-      "https://png.pngtree.com/thumb_back/fh260/background/20251016/pngtree-black-t-shirt-mockup-front-and-back-views-image_19883359.webp",
-      "https://c8.alamy.com/comp/3B788R4/black-t-shirt-front-and-back-side-on-grey-background-isolated-with-shadowcotton-shirt-object-nobodymale-tshirt-on-hangerhanging-clothesmockup-3B788R4.jpg"
+      "https://img.freepik.com/premium-photo/blank-black-tshirt-mockup-front-back-view_343283-11386.jpg",
+      "https://www.shutterstock.com/image-photo/black-tshirts-front-back-view-600nw-2499674183.jpg",
+      "https://media.istockphoto.com/id/1218949014/photo/black-t-shirt-mock-up-on-wooden-hanger-front-and-rear-side-view.jpg?s=612x612&w=0&k=20&c=wGuTPmJCYLQDxOyIcI7pHcK-_A91UVmI5vQk-xnYU0Q=",
+      "https://media.istockphoto.com/id/1726263781/vector/blank-black-t-shirt-template.jpg?s=612x612&w=0&k=20&c=D99VMv8nYh1tmSZO61Do3OYbUldC4JMQt7OiyyTaLG8="
     ],
-    shortDescription: "Comfortable premium cotton t-shirt",
-    longDescription: "High-quality 100% cotton t-shirt with perfect fit. Available in multiple sizes.",
-    delivery: "3-5 days",
-    warranty: true,
-    returnPolicy: true,
-    variants: [{color:"Black",size:"M"},{color:"Black",size:"L"},{color:"White",size:"M"}],
-    feedback: [
-      {name:"Nimal", message:"Super quality!", proof:"https://www.shutterstock.com/image-photo/young-asian-deliveryman-uniform-smiles-260nw-2628228883.jpg"},
-      {name:"Kamal", message:"Fast delivery", proof:"https://thumbs.dreamstime.com/z/cheerful-afro-woman-hugging-carton-parcel-receiving-long-awaited-delivery-getting-online-order-indoors-satisfied-female-customer-229176680.jpg"}
-    ]
+    description: "Premium cotton, perfect fit. Available in S, M, L, XL.",
+    variants: ["S", "M", "L", "XL"]
   },
   {
     id: 2,
-    name: "Women's Stylish Summer Dress",
+    name: "Women's Floral Summer Dress",
     retailPrice: 4500,
     wholesalePrice: 2800,
     discount: 15,
@@ -37,52 +32,67 @@ const products = [
     rating: 4.6,
     freeDelivery: false,
     images: [
-      "https://www.shutterstock.com/image-photo/stylish-girl-fashionable-outfit-poses-600nw-2659109587.jpg",
-      "https://thumbs.dreamstime.com/b/fashionable-young-woman-holding-shopping-bags-phone-blue-background-wearing-trendy-yellow-dress-stylish-woman-407519439.jpg",
-      "https://www.shutterstock.com/image-photo/stylish-woman-shiny-ruched-metallic-260nw-2648052125.jpg",
-      "https://www.shutterstock.com/image-photo/bride-friends-choosing-wedding-dress-600nw-2011651619.jpg"
+      "https://makersrow.com/wp-content/uploads/2025/05/two-young-beautiful-smiling-hipster-girls-trendy-summer-sundress-sexy-carefree-women-posing-street-background-hats-positive-models-having-fun-hugging-1024x768.webp",
+      "https://www.marthastewart.com/thmb/DOYWYrmd4PAy2tXEBi5jbEVeCdM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/asos-a30c64d3cf5d417193eb89d4acdd6895.jpg",
+      "https://s.yimg.com/uu/api/res/1.2/qsWgJgOZ0krbHoI0WGRekg--~B/Zmk9c3RyaW07aD03MjA7dz0xMjgwO2FwcGlkPXl0YWNoeW9u/https://media-mbst-pub-ue1.s3.amazonaws.com/creatr-uploaded-images/2025-05/3c705320-37e8-11f0-bdb7-11ba9130ca4a",
+      "https://www.anitabydesign.com/wp-content/uploads/2024/09/1-2.png"
     ],
-    shortDescription: "Elegant floral summer dress",
-    longDescription: "Light and breathable summer dress perfect for any occasion.",
-    delivery: "4-7 days",
-    warranty: false,
-    returnPolicy: true,
-    variants: [{color:"Yellow",size:"M"},{color:"Blue",size:"L"}],
-    feedback: [...]
+    description: "Light and elegant floral dress for summer.",
+    variants: ["S", "M", "L"]
   },
-  // Products 3-10 similar විදියට add කරන්න (images tool එකෙන් ගත්තු URLs use කරලා). Space නිසා short කරලා තියෙනවා – full එකට ඔයා add කරගන්න.
-  // Example for product 3 (Running Shoes):
+  // Add remaining 8 products similarly with images from tool results (Running Shoes, Smart Watch, Backpack, Earbuds, Sunglasses, Hoodie, Jeans, Cap)
+  // Example for product 3:
   {
     id: 3,
-    name: "Men's Running Shoes",
+    name: "Men's Black Running Shoes",
     retailPrice: 8000,
     wholesalePrice: 5000,
-    // ... same structure, images from shoes results
-  }
-  // Total 10 products හදන්න.
+    discount: 10,
+    stock: 50,
+    sold: 200,
+    rating: 4.9,
+    freeDelivery: true,
+    images: [
+      "https://cdns3.sasshoes.com/img/Mission-M_Stability_1.jpg",
+      "https://cdn.shopify.com/s/files/1/0129/6942/files/NewBalanceMen_sFreshFoamX1080v14Black-Magnet-5_720x540.jpg",
+      "https://cdn.shopify.com/s/files/1/0129/6942/files/OnRunningMen_sCloudrunner2EclipseBlack2_720x540.jpg",
+      "https://images.dickssportinggoods.com/marketing/DSG_FTW_10426136_Multi_PostHolidayFootwearUpdates_11212133629.jpg"
+    ],
+    description: "Comfortable running shoes with great cushioning.",
+    variants: ["8", "9", "10", "11"]
+  },
+  // Continue for 4-10 with selected images...
 ];
 
-const users = [
-  {username: "admin", password: "admin123", type: "admin"},
-  {username: "reseller1", password: "pass123", type: "reseller"},
-  // Add another 14 resellers similar විදියට (total 15 resellers + admin)
-];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-// Cart functions, login, WhatsApp send, etc. (standard e-commerce JS code – cart localStorage, addToCart(), checkout generate message, etc.)
-
-function updateSiteName() {
+function updateSiteForUser() {
   const siteName = document.getElementById('siteName');
   if (siteName) {
-    const type = localStorage.getItem('userType');
-    siteName.textContent = (type === 'reseller') ? 'RU Online Store' : 'Laaba Kade';
+    siteName.textContent = isReseller ? 'RU Online Store' : 'Laaba Kade';
+  }
+  displayProducts();
+}
+
+function login(username, password) {
+  if (username === 'admin' && password === 'admin123') {
+    isReseller = true;
+    localStorage.setItem('isReseller', true);
+    updateSiteForUser();
+    alert('Reseller login successful!');
+  } else {
+    alert('Invalid credentials');
   }
 }
 
 function sendToWhatsApp(message) {
-  const number = "94775048455";
-  const encoded = encodeURIComponent(message);
-  window.open(`https://wa.me/${number}?text=${encoded}`, '_blank');
+  const text = encodeURIComponent(message);
+  window.open(`https://wa.me/94775048455?text=${text}`);
 }
 
-// Login, logout, cart, etc. functions මෙතනින් පහල full implement කරන්න (standard code).
-window.onload = updateSiteName;
+// Cart functions, display products with correct price (retail or wholesale), etc.
+
+window.onload = () => {
+  isReseller = localStorage.getItem('isReseller') === 'true';
+  updateSiteForUser();
+};
