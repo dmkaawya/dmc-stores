@@ -1,171 +1,561 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laaba Kade - Home</title>
+    <title>Laaba Kade</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <style>
-        /* Global Styles */
+        :root {
+            --bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --text: #e0e0e0;
+            --accent: #00ff88;
+            --secondary: #262626;
+            --hover: #00cc66;
+        }
+        * { box-sizing: border-box; }
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         header {
-            background-color: #1f1f1f;
-            padding: 10px;
+            background: var(--secondary);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
         .logo {
-            font-size: 24px;
+            font-size: 1.8rem;
+            font-weight: 700;
             cursor: pointer;
         }
         nav ul {
+            display: flex;
+            gap: 1.5rem;
             list-style: none;
-            display: flex;
-            gap: 15px;
+            margin: 0;
+            padding: 0;
         }
-        nav ul li a {
-            color: #ffffff;
+        nav a {
+            color: var(--text);
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
         }
-        .mobile-menu {
-            display: none;
+        nav a:hover { color: var(--accent); }
+        .hamburger { display: none; font-size: 1.8rem; cursor: pointer; }
+        .user-actions { display: flex; gap: 1rem; }
+        button, .btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
         }
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-            .mobile-menu {
-                display: block;
-                cursor: pointer;
-            }
-            .mobile-menu.active + ul {
-                display: flex;
-                flex-direction: column;
-            }
-        }
-        /* Home Page Styles */
-        .hero {
-            text-align: center;
-            padding: 50px;
-            animation: fadeIn 1s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .product-swipe {
-            display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            animation: swipe 10s infinite linear;
-        }
-        @keyframes swipe {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        button:hover, .btn:hover { background: var(--hover); transform: translateY(-2px); }
+        main { flex: 1; }
+        .section { display: none; padding: 2rem; animation: fadeIn 0.6s ease; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
         .product-card {
-            background: #333;
-            padding: 10px;
-            border-radius: 5px;
-            width: 200px;
-            flex-shrink: 0;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+            cursor: pointer;
         }
-        .benefits, .feedback {
-            padding: 20px;
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,255,136,0.2); }
+        .product-card img { width: 100%; height: 300px; object-fit: cover; }
+        .product-card .info { padding: 1rem; }
+        .product-card .price { font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+        .rating { color: #ffd700; }
+        .carousel {
+            overflow: hidden;
+            margin: 2rem 0;
+            position: relative;
         }
-        .dropship-ad {
-            background: #444;
-            padding: 20px;
-            text-align: center;
+        .carousel-inner {
+            display: flex;
+            animation: scroll 40s linear infinite;
+        }
+        .carousel-inner:hover { animation-play-state: paused; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .carousel-card {
+            min-width: 300px;
+            margin: 0 10px;
         }
         footer {
-            background: #1f1f1f;
-            padding: 20px;
+            background: var(--secondary);
+            padding: 2rem;
             text-align: center;
+            font-size: 0.9rem;
         }
-        /* Buttons */
-        button {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background 0.3s;
+        footer a { color: var(--accent); text-decoration: none; }
+        @media (max-width: 768px) {
+            nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--secondary); padding: 1rem; }
+            nav ul.active { display: flex; }
+            .hamburger { display: block; }
+            .user-actions { margin-top: 1rem; width: 100%; justify-content: center; }
         }
-        button:hover {
-            background: #388e3c;
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: var(--text);
         }
+        form { max-width: 600px; margin: 0 auto; }
+        .gallery { display: flex; flex-wrap: wrap; gap: 10px; margin: 1rem 0; }
+        .gallery img { width: 100px; height: 100px; object-fit: cover; cursor: pointer; border-radius: 8px; }
+        .gallery .main-img { width: 100%; max-width: 500px; height: auto; }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo" onclick="window.location.href='index.html'">Laaba Kade</div>
-        <div class="mobile-menu" onclick="this.classList.toggle('active')">☰</div>
+        <div class="logo" onclick="showSection('home');">Laaba Kade</div>
+        <div class="hamburger" onclick="document.getElementById('nav-menu').classList.toggle('active')">☰</div>
         <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="store.html">Shop</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="resell.html">Resell</a></li>
-                <li><a href="login.html">Login/Sign Up</a></li>
+            <ul id="nav-menu">
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('shop')">Shop</a></li>
+                <li><a onclick="showSection('about')">About</a></li>
+                <li><a onclick="showSection('contact')">Contact Us</a></li>
+                <li><a onclick="handleResell()">Resell</a></li>
+                <li id="admin-link" style="display:none"><a onclick="showSection('admin')">Admin</a></li>
+                <li id="logout-link" style="display:none"><a onclick="logout()">Logout</a></li>
+                <li id="login-link"><a onclick="showSection('login')">Login/Sign Up</a></li>
             </ul>
         </nav>
-        <button onclick="window.location.href='login.html'">Login</button>
-        <button onclick="window.location.href='cart.html'">Cart</button>
+        <div class="user-actions">
+            <button onclick="showSection('cart')">Cart (<span id="cart-count">0</span>)</button>
+        </div>
     </header>
-    <section class="hero">
-        <h1>Welcome to Laaba Kade</h1>
-    </section>
-    <section class="product-swipe">
-        <!-- Sample products, add more -->
-        <div class="product-card"><img src="https://via.placeholder.com/200" alt="Product 1"><p>Product 1 - $10</p></div>
-        <div class="product-card"><img src="https://via.placeholder.com/200" alt="Product 2"><p>Product 2 - $15</p></div>
-        <!-- Repeat for 10 products -->
-    </section>
-    <section class="benefits">
-        <h2>Our Benefits</h2>
-        <ul>
-            <li>Fast Delivery</li>
-            <li>Quality Products</li>
-        </ul>
-    </section>
-    <section class="feedback">
-        <h2>Customer Feedback</h2>
-        <p>Great service! - John</p>
-    </section>
-    <section class="dropship-ad">
-        <h2>Join Dropshipping for Extra Income</h2>
-        <button onclick="window.location.href='register.html'">Register</button>
-        <button onclick="window.location.href='login.html'">Login</button>
-        <button>View More Details</button>
-    </section>
+
+    <main>
+        <!-- Home -->
+        <div id="home" class="section active">
+            <h1 style="text-align:center; font-size:2.5rem;">Welcome to Laaba Kade</h1>
+            <div class="carousel">
+                <div class="carousel-inner" id="carousel-inner">
+                    <!-- Filled by JS (duplicated for infinite scroll) -->
+                </div>
+            </div>
+            <div style="text-align:center; padding:2rem;">
+                <h2>Our Benefits</h2>
+                <p>✓ Fast Delivery Across Sri Lanka</p>
+                <p>✓ High Quality Products</p>
+                <p>✓ Free Delivery on All Orders</p>
+                <p>✓ Easy Returns</p>
+            </div>
+            <div style="text-align:center; padding:2rem; background:var(--card-bg); border-radius:12px;">
+                <h2>Earn Extra Income – Join Dropshipping</h2>
+                <button onclick="showSection('login')" class="btn">Register as Reseller</button>
+                <button onclick="showSection('login')" class="btn">Login</button>
+            </div>
+        </div>
+
+        <!-- Shop -->
+        <div id="shop" class="section">
+            <input type="text" id="search-input" placeholder="Search products..." oninput="filterProducts()" style="max-width:500px; margin:0 auto 2rem; display:block;">
+            <div id="wholesale-note" style="display:none; text-align:center; color:var(--accent); font-size:1.2rem; margin-bottom:1rem;">Wholesale Prices – Set your profit in cart</div>
+            <div class="product-grid" id="product-grid"></div>
+        </div>
+
+        <!-- Product Detail -->
+        <div id="product-detail" class="section">
+            <div id="detail-content"></div>
+            <button onclick="showSection('shop')" class="btn">Back to Shop</button>
+        </div>
+
+        <!-- Cart -->
+        <div id="cart" class="section">
+            <h1 style="text-align:center;">Shopping Cart</h1>
+            <div id="cart-items"></div>
+            <h2 style="text-align:right;">Total: $<span id="cart-total">0</span></h2>
+            <div style="text-align:center; margin-top:2rem;">
+                <button onclick="showSection('shop')" class="btn">Continue Shopping</button>
+                <button onclick="showSection('checkout')" class="btn">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <!-- Checkout -->
+        <div id="checkout" class="section">
+            <h1 style="text-align:center;">Checkout</h1>
+            <form id="checkout-form">
+                <input type="text" placeholder="Full Name *" required>
+                <textarea placeholder="Delivery Address *" required></textarea>
+                <input type="tel" placeholder="WhatsApp Number *" required>
+                <input type="tel" placeholder="Secondary Number (optional)">
+                <select required>
+                    <option value="" disabled selected>District *</option>
+                    <option>Colombo</option><option>Gampaha</option><option>Kalutara</option><option>Kandy</option><option>Matale</option>
+                    <option>Nuwara Eliya</option><option>Galle</option><option>Matara</option><option>Hambantota</option><option>Jaffna</option>
+                    <option>Kilinochchi</option><option>Mannar</option><option>Vavuniya</option><option>Mullaitivu</option><option>Batticaloa</option>
+                    <option>Ampara</option><option>Trincomalee</option><option>Kurunegala</option><option>Puttalam</option><option>Anuradhapura</option>
+                    <option>Polonnaruwa</option><option>Badulla</option><option>Monaragala</option><option>Ratnapura</option><option>Kegalle</option>
+                </select>
+                <input type="email" placeholder="Email (optional)">
+                <h3>Payment Method</h3>
+                <label><input type="radio" name="payment" value="COD" required> Cash on Delivery</label><br>
+                <label><input type="radio" name="payment" value="Bank"> Bank Transfer</label>
+                <label style="display:block; margin-top:1rem;"><input type="checkbox" required> I agree to the terms and conditions</label>
+                <div style="text-align:center; margin-top:2rem;">
+                    <button type="button" onclick="processCheckout()" class="btn">Confirm Order</button>
+                    <button type="button" onclick="showSection('cart')" class="btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- About -->
+        <div id="about" class="section">
+            <h1>About Us</h1>
+            <p>Owner: Kaawya Chandrasekara</p>
+            <p>Started in 2024, currently in early stage with 150+ orders.</p>
+            <p>Email: dmkaawya@gmail.com</p>
+            <p>WhatsApp: 0775048455</p>
+            <p>Social Media: dmkaawya</p>
+        </div>
+
+        <!-- Contact -->
+        <div id="contact" class="section">
+            <h1>Contact Us</h1>
+            <form id="contact-form">
+                <input type="text" placeholder="Name *" required>
+                <input type="email" placeholder="Email">
+                <textarea placeholder="Message *" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Rules -->
+        <div id="rules" class="section">
+            <h1>Terms & Rules</h1>
+            <ul>
+                <li>Delivery within 3-7 days</li>
+                <li>Free delivery islandwide</li>
+                <li>Returns accepted within 14 days</li>
+                <li>COD or Bank transfer only</li>
+            </ul>
+        </div>
+
+        <!-- Login / Register -->
+        <div id="login" class="section">
+            <h1 style="text-align:center;">Login / Register as Reseller</h1>
+            <div style="max-width:500px; margin:0 auto;">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <input type="text" id="username" placeholder="Username *" required>
+                    <input type="password" id="password" placeholder="Password *" required>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <h2 style="margin-top:2rem;">Register as Reseller</h2>
+                <form id="register-form">
+                    <input type="text" placeholder="First Name *" required>
+                    <input type="text" placeholder="Last Name *" required>
+                    <input type="text" placeholder="Business Name (optional)">
+                    <input type="tel" placeholder="WhatsApp Number *" required>
+                    <input type="email" placeholder="Email *" required>
+                    <input type="text" placeholder="Username *" required>
+                    <input type="password" placeholder="Password *" required>
+                    <input type="number" placeholder="Age *" required>
+                    <select required>
+                        <option value="" disabled selected>District *</option>
+                        <!-- Same district list as checkout -->
+                        <option>Colombo</option><option>Gampaha</option><!-- ... add all 25 -->
+                    </select>
+                    <button type="submit" class="btn">Register</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin -->
+        <div id="admin" class="section">
+            <h1>Admin Panel</h1>
+            <p>Welcome, Owner</p>
+            <h2>Stats</h2>
+            <p>Total Orders: 150+</p>
+            <h2>Resellers (14 registered)</h2>
+            <table style="width:100%; border-collapse:collapse;">
+                <tr><th>Username</th><th>Name</th><th>WP</th></tr>
+                <!-- Filled by JS -->
+            </table>
+            <p>All orders and registrations are sent directly to WhatsApp: 0775048455</p>
+        </div>
+
+        <!-- Thank You -->
+        <div id="thankyou" class="section">
+            <h1 style="text-align:center;">Thank You!</h1>
+            <p style="text-align:center;">Your order has been sent via WhatsApp. We will contact you soon.</p>
+            <button onclick="showSection('home'); cart = []; saveCart();" class="btn">Back to Home</button>
+        </div>
+    </main>
+
     <footer>
-        <p>Laaba Kade - Your trusted online store.</p>
-        <div>Social Media: <a href="#">Facebook</a> | <a href="#">Instagram</a></div>
-        <a href="rules.html">Rules</a>
-        <form action="https://app.web3forms.com/submit" method="POST">
+        <p>Laaba Kade – Your trusted online store</p>
+        <p>Social Media: <a href="#">Facebook</a> | <a href="#">Instagram</a> | dmkaawya</p>
+        <a onclick="showSection('rules')">Rules & Terms</a>
+        <form action="https://app.web3forms.com/submit" method="POST" style="margin:1rem 0;">
             <input type="hidden" name="access_key" value="c95e74a2-7e94-46a6-b730-f6ce448c01b9">
-            <input type="email" name="email" placeholder="Subscribe">
-            <button type="submit">Subscribe</button>
+            <input type="email" name="email" placeholder="Subscribe to newsletter" style="width:auto; display:inline;">
+            <button type="submit" class="btn">Subscribe</button>
         </form>
         <p>Powered by DMC Group</p>
-        <p>Copyright 2026</p>
+        <p>&copy; 2026 Laaba Kade. All rights reserved.</p>
     </footer>
+
     <script>
-        // WhatsApp send function for forms
-        function sendToWhatsApp(data) {
-            const wpNumber = '94775048455';
-            const message = encodeURIComponent(JSON.stringify(data));
-            window.open(`https://wa.me/${wpNumber}?text=${message}`);
+        const wpNumber = '94775048455';
+        let currentUser = null;
+        let mode = 'customer'; // customer, reseller, admin
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+        const products = [
+            {id:1, name:"Men's Black T-Shirt", customerPrice:25, resellerPrice:15, discount:10, stock:100, sold:120, rating:4.8, images:[`https://picsum.photos/seed/p1a/400/600`,`https://picsum.photos/seed/p1b/400/600`,`https://picsum.photos/seed/p1c/400/600`,`https://picsum.photos/seed/p1d/400/600`]},
+            {id:2, name:"Blue Denim Jeans", customerPrice:50, resellerPrice:30, discount:0, stock:80, sold:90, rating:4.6, images:[`https://picsum.photos/seed/p2a/400/600`,`https://picsum.photos/seed/p2b/400/600`,`https://picsum.photos/seed/p2c/400/600`,`https://picsum.photos/seed/p2d/400/600`]},
+            {id:3, name:"White Sneakers", customerPrice:60, resellerPrice:35, discount:15, stock:50, sold:200, rating:4.9, images:[`https://picsum.photos/seed/p3a/400/600`,`https://picsum.photos/seed/p3b/400/600`,`https://picsum.photos/seed/p3c/400/600`,`https://picsum.photos/seed/p3d/400/600`]},
+            {id:4, name:"Analog Wrist Watch", customerPrice:80, resellerPrice:45, discount:0, stock:30, sold:70, rating:4.7, images:[`https://picsum.photos/seed/p4a/400/600`,`https://picsum.photos/seed/p4b/400/600`,`https://picsum.photos/seed/p4c/400/600`,`https://picsum.photos/seed/p4d/400/600`]},
+            {id:5, name:"Leather Backpack", customerPrice:70, resellerPrice:40, discount:20, stock:40, sold:85, rating:4.5, images:[`https://picsum.photos/seed/p5a/400/600`,`https://picsum.photos/seed/p5b/400/600`,`https://picsum.photos/seed/p5c/400/600`,`https://picsum.photos/seed/p5d/400/600`]},
+            {id:6, name:"Polarized Sunglasses", customerPrice:35, resellerPrice:20, discount:0, stock:120, sold:150, rating:4.8, images:[`https://picsum.photos/seed/p6a/400/600`,`https://picsum.photos/seed/p6b/400/600`,`https://picsum.photos/seed/p6c/400/600`,`https://picsum.photos/seed/p6d/400/600`]},
+            {id:7, name:"Gray Hoodie", customerPrice:45, resellerPrice:25, discount:10, stock:60, sold:110, rating:4.6, images:[`https://picsum.photos/seed/p7a/400/600`,`https://picsum.photos/seed/p7b/400/600`,`https://picsum.photos/seed/p7c/400/600`,`https://picsum.photos/seed/p7d/400/600`]},
+            {id:8, name:"Baseball Cap", customerPrice:20, resellerPrice:12, discount:0, stock:200, sold:300, rating:4.4, images:[`https://picsum.photos/seed/p8a/400/600`,`https://picsum.photos/seed/p8b/400/600`,`https://picsum.photos/seed/p8c/400/600`,`https://picsum.photos/seed/p8d/400/600`]},
+            {id:9, name:"Leather Wallet", customerPrice:30, resellerPrice:18, discount:15, stock:90, sold:130, rating:4.7, images:[`https://picsum.photos/seed/p9a/400/600`,`https://picsum.photos/seed/p9b/400/600`,`https://picsum.photos/seed/p9c/400/600`,`https://picsum.photos/seed/p9d/400/600`]},
+            {id:10, name:"Leather Belt", customerPrice:25, resellerPrice:14, discount:0, stock:70, sold:95, rating:4.5, images:[`https://picsum.photos/seed/p10a/400/600`,`https://picsum.photos/seed/p10b/400/600`,`https://picsum.photos/seed/p10c/400/600`,`https://picsum.photos/seed/p10d/400/600`]}
+        ];
+
+        const users = [
+            {username:"admin", password:"admin123", role:"owner", name:"Kaawya Chandrasekara"},
+            // Add more resellers if needed (demo has owner only – you can manually add)
+        ];
+
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.reduce((s,i) => s + i.quantity, 0);
         }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if (id === 'home') loadHome();
+            if (id === 'shop') loadShop();
+            if (id === 'cart') loadCart();
+        }
+
+        function updateHeader() {
+            const logo = document.querySelector('.logo');
+            if (mode === 'reseller') {
+                document.title = 'RU Online Store';
+                logo.innerText = 'RU Online Store';
+            } else {
+                document.title = 'Laaba Kade';
+                logo.innerText = 'Laaba Kade';
+            }
+            document.getElementById('wholesale-note').style.display = mode === 'reseller' ? 'block' : 'none';
+            document.getElementById('logout-link').style.display = currentUser ? 'block' : 'none';
+            document.getElementById('login-link').style.display = currentUser ? 'none' : 'block';
+            document.getElementById('admin-link').style.display = mode === 'admin' ? 'block' : 'none';
+        }
+
+        function handleResell() {
+            if (mode === 'reseller') showSection('shop');
+            else showSection('login');
+        }
+
+        function logout() {
+            currentUser = null;
+            mode = 'customer';
+            cart = [];
+            saveCart();
+            updateHeader();
+            showSection('home');
+        }
+
+        function loadHome() {
+            const inner = document.getElementById('carousel-inner');
+            inner.innerHTML = '';
+            products.forEach(p => {
+                const price = mode === 'reseller' ? p.resellerPrice : p.customerPrice;
+                inner.innerHTML += `<div class="carousel-card product-card" onclick="showProduct(${p.id})">
+                    <img src="${p.images[0]}" alt="${p.name}">
+                    <div class="info"><h3>${p.name}</h3><p class="price">$${price}</p></div>
+                </div>`;
+            });
+            inner.innerHTML += inner.innerHTML; // duplicate for infinite scroll
+        }
+
+        function loadShop() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const price = mode === 'reseller' ? p.resellerPrice : p.customerPrice;
+                grid.innerHTML += `
+                    <div class="product-card" onclick="showProduct(${p.id})">
+                        <img src="${p.images[0]}" alt="${p.name}">
+                        <div class="info">
+                            <h3>${p.name}</h3>
+                            <p class="price">$${price}</p>
+                            ${p.discount ? `<p>Discount: ${p.discount}%</p>` : ''}
+                            <p>Stock: ${p.stock} | Sold: ${p.sold}</p>
+                            <p class="rating">${'★'.repeat(Math.floor(p.rating))} (${p.rating})</p>
+                            <p>Free Delivery</p>
+                            <button onclick="addToCart(${p.id}); event.stopPropagation();" class="btn">Add to Cart</button>
+                            <button onclick="addToCart(${p.id}); showSection('cart'); event.stopPropagation();" class="btn">Buy Now</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            document.querySelectorAll('.product-card').forEach(card => {
+                const name = card.querySelector('h3').innerText.toLowerCase();
+                card.style.display = name.includes(query) ? 'block' : 'none';
+            });
+        }
+
+        function showProduct(id) {
+            const p = products.find(pr => pr.id === id);
+            const price = mode === 'reseller' ? p.resellerPrice : p.customerPrice;
+            let gallery = p.images.map(img => `<img src="${img}" onclick="this.parentNode.previousElementSibling.src=this.src">`).join('');
+            document.getElementById('detail-content').innerHTML = `
+                <h1>${p.name}</h1>
+                <div class="gallery">
+                    <img class="main-img" src="${p.images[0]}" alt="${p.name}">
+                    <div>${gallery}</div>
+                </div>
+                <p><strong>Price:</strong> $${price}</p>
+                ${mode === 'reseller' ? '<p><strong>Wholesale price – set selling price in cart</strong></p>' : ''}
+                <p><strong>Rating:</strong> ${'★'.repeat(Math.floor(p.rating))} (${p.rating})</p>
+                <p>Free Delivery | Warranty Available | 30 Days Return</p>
+                <label>Quantity: <input type="number" id="qty" value="1" min="1" max="${p.stock}" style="width:80px;"></label><br><br>
+                <button onclick="addToCart(${p.id}, document.getElementById('qty').value)" class="btn">Add to Cart</button>
+                <button onclick="addToCart(${p.id}, document.getElementById('qty').value); showSection('cart')" class="btn">Buy Now</button>
+            `;
+            showSection('product-detail');
+        }
+
+        function addToCart(id, qty = 1) {
+            const p = products.find(pr => pr.id === id);
+            const price = mode === 'reseller' ? p.resellerPrice : p.customerPrice;
+            const selling = mode === 'reseller' ? p.customerPrice : price;
+            const existing = cart.find(i => i.id === id);
+            if (existing) existing.quantity += parseInt(qty);
+            else cart.push({id, name: p.name, image: p.images[0], price, sellingPrice: selling, quantity: parseInt(qty)});
+            saveCart();
+            alert('Added to cart!');
+        }
+
+        function loadCart() {
+            const items = document.getElementById('cart-items');
+            items.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, idx) => {
+                const itemTotal = item.quantity * item.sellingPrice;
+                total += itemTotal;
+                items.innerHTML += `
+                    <div style="display:flex; align-items:center; gap:1rem; margin:1rem 0; background:var(--card-bg); padding:1rem; border-radius:12px;">
+                        <img src="${item.image}" style="width:100px;">
+                        <div style="flex:1;">
+                            <h3>${item.name}</h3>
+                            ${mode === 'reseller' ? `<label>Selling Price: <input type="number" value="${item.sellingPrice}" onchange="cart[${idx}].sellingPrice=parseFloat(this.value); loadCart(); saveCart();" style="width:100px;"></label><br>` : ''}
+                            <label>Quantity: <input type="number" value="${item.quantity}" min="1" onchange="cart[${idx}].quantity=parseInt(this.value); loadCart(); saveCart();" style="width:80px;"></label>
+                            <p>Total: $${itemTotal}</p>
+                        </div>
+                        <button onclick="cart.splice(${idx},1); loadCart(); saveCart();" style="background:#ff4444;">Remove</button>
+                    </div>`;
+            });
+            document.getElementById('cart-total').innerText = total;
+        }
+
+        function processCheckout() {
+            const inputs = document.querySelectorAll('#checkout-form input, #checkout-form textarea, #checkout-form select');
+            let valid = true;
+            inputs.forEach(i => { if (i.required && !i.value) valid = false; });
+            if (!valid) return alert('Please fill all required fields');
+            let message = mode === 'reseller' ? `RESELLER ORDER\nfrom: ${currentUser?.name || 'Unknown'}\n\n` : 'CUSTOMER ORDER\n\n';
+            message += 'Customer Details:\n';
+            inputs.forEach(i => { if (i.value) message += `${i.placeholder || i.name}: ${i.value}\n`; });
+            const payment = document.querySelector('input[name="payment"]:checked')?.value || '';
+            message += `Payment: ${payment}\n\nProducts:\n`;
+            let total = 0, profitTotal = 0;
+            cart.forEach(item => {
+                const profit = mode === 'reseller' ? (item.sellingPrice - item.price) * item.quantity : 0;
+                profitTotal += profit;
+                total += item.sellingPrice * item.quantity;
+                message += `- ${item.name} x${item.quantity} @ $${item.sellingPrice} ${mode === 'reseller' ? `(wholesale $${item.price}, profit $${profit})` : ''}\n`;
+            });
+            message += `\nTotal Amount: $${total}`;
+            if (mode === 'reseller') message += `\nReseller Profit: $${profitTotal}`;
+            window.open(`https://wa.me/${wpNumber}?text=${encodeURIComponent(message)}`);
+            showSection('thankyou');
+        }
+
+        // Login
+        document.getElementById('login-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                currentUser = user;
+                if (user.role === 'owner') mode = 'admin';
+                else mode = 'reseller';
+                updateHeader();
+                showSection(mode === 'admin' ? 'admin' : 'shop');
+            } else alert('Invalid credentials');
+        });
+
+        // Register
+        document.getElementById('register-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const data = {};
+            new FormData(e.target).forEach((v,k) => data[k || e.target.querySelector(`[placeholder="${k}"]`)?.placeholder] = v);
+            const message = `New Reseller Registration:\n${Object.entries(data).map(([k,v]) => `${k}: ${v}`).join('\n')}`;
+            window.open(`https://wa.me/${wpNumber}?text=${encodeURIComponent(message)}`);
+            alert('Registration sent! Owner will approve.');
+            e.target.reset();
+        });
+
+        // Contact
+        document.getElementById('contact-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const data = new FormData(e.target);
+            let msg = 'Contact Form:\n';
+            data.forEach((v,k) => msg += `${k}: ${v}\n`);
+            window.open(`https://wa.me/${wpNumber}?text=${encodeURIComponent(msg)}`);
+            alert('Message sent via WhatsApp');
+            e.target.reset();
+        });
+
+        // Initial load
+        updateCartCount();
+        updateHeader();
+        loadHome();
     </script>
 </body>
 </html>
