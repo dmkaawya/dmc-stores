@@ -1,42 +1,44 @@
 body {
-  background-color: #121212;
+  background-color: #0f0f0f;
   color: #e0e0e0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .navbar {
-  background-color: #1f1f1f !important;
+  background-color: #1a1a1a !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .card {
-  background-color: #1f1f1f;
-  border: 1px solid #333;
-  transition: transform 0.3s;
+  background-color: #1e1e1e;
+  border: none;
+  transition: all 0.4s;
 }
 
 .card:hover {
   transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,123,255,0.3);
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background: linear-gradient(45deg, #007bff, #0056b3);
   border: none;
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
 .fade-in {
-  animation: fadeIn 1s ease-in;
+  animation: fadeIn 1.5s;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 footer {
-  background-color: #1f1f1f;
-  padding: 40px 0 20px;
+  background-color: #1a1a1a;
+  padding: 50px 0 20px;
+}
+
+.carousel-item img {
+  border-radius: 15px;
 }
