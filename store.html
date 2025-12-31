@@ -1,0 +1,46 @@
+<!-- store.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <style>
+        /* Similar dark theme */
+        .search { padding: 20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+        .product-card { background: #333; padding: 10px; }
+    </style>
+</head>
+<body>
+    <header><!-- Same --></header>
+    <section class="search">
+        <input type="text" placeholder="Search Products" oninput="searchProducts(this.value)">
+    </section>
+    <section class="product-grid">
+        <!-- 10 Products -->
+        <div class="product-card" onclick="openProduct(1)">
+            <img src="https://via.placeholder.com/200" alt="Prod1">
+            <p>Product 1</p><p>$10</p><p>Discount: 10%</p><p>Stock: 50</p><p>Sold: 20</p><p>Rate: 4.5</p><p>Free Delivery</p>
+            <button>Buy</button><button>Add to Cart</button>
+        </div>
+        <!-- Repeat for 10 -->
+    </section>
+    <footer><!-- Same --></footer>
+    <script>
+        function searchProducts(query) {
+            // Filter products
+        }
+        function openProduct(id) {
+            // Redirect or modal for detail
+            window.location.href = `product.html?id=${id}`;
+        }
+        // Cart logic
+        let cart = [];
+        function addToCart(item) {
+            cart.push(item);
+            sendToWhatsApp({action: 'add_cart', item});
+        }
+    </script>
+</body>
+</html>
