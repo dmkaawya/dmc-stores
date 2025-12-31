@@ -1,48 +1,54 @@
-<!-- admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <style>
-        body { background: #121212; color: #fff; }
-        section { padding: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #333; padding: 10px; }
+        body { margin: 0; font-family: sans-serif; display: flex; background: #121212; color: #fff; }
+        .sidebar { width: 250px; background: #000; height: 100vh; padding: 20px; border-right: 1px solid #333; }
+        .sidebar a { display: block; padding: 15px; color: #bbb; text-decoration: none; border-bottom: 1px solid #333; }
+        .sidebar a:hover { background: #333; color: #fff; }
+        .content { flex: 1; padding: 20px; }
+        .card { background: #1e1e1e; padding: 20px; margin-bottom: 20px; border-radius: 10px; }
+        h1 { color: #bb86fc; }
     </style>
 </head>
 <body>
-    <header><!-- Same as index --></header>
-    <section>
-        <h1>Admin Panel</h1>
-        <h2>Direct Orders</h2>
-        <table>
-            <tr><th>Order ID</th><th>Details</th></tr>
-            <!-- Dynamic content via JS -->
-        </table>
-        <h2>Reseller Orders</h2>
-        <table><!-- Similar --></table>
-        <h2>Staff</h2>
-        <ul><!-- List --></ul>
-        <h2>Resellers</h2>
-        <ul><!-- List 14 resellers --></ul>
-        <h2>Customers</h2>
-        <ul><!-- List --></ul>
-        <h2>Profiles</h2>
-        <!-- Edit profiles -->
-        <h2>Generate Invoice</h2>
-        <button onclick="generateInvoice()">Generate</button>
-    </section>
-    <footer><!-- Same --></footer>
-    <script>
-        // Admin logic, access levels
-        const users = [{username: 'admin', password: 'admin123', role: 'owner'}]; // Add 16 users, 14 resellers
-        function generateInvoice() {
-            // Logic to create PDF or text invoice
-            alert('Invoice Generated');
-        }
-        // Send to WP as needed
-    </script>
+    <div class="sidebar">
+        <h2 style="color:#bb86fc; text-align:center;">Admin Panel</h2>
+        <a href="#">Dashboard</a>
+        <a href="#">Orders (WhatsApp)</a>
+        <a href="#">Manage Products</a>
+        <a href="#">Resellers (14)</a>
+        <a href="#">Customers</a>
+        <a href="index.html">View Site</a>
+    </div>
+
+    <div class="content">
+        <h1>Dashboard Overview</h1>
+        <div style="display: flex; gap: 20px;">
+            <div class="card" style="flex:1; border-left: 5px solid cyan;">
+                <h3>Total Orders</h3>
+                <h1>150</h1>
+            </div>
+            <div class="card" style="flex:1; border-left: 5px solid lime;">
+                <h3>Total Revenue</h3>
+                <h1>LKR 450,000</h1>
+            </div>
+            <div class="card" style="flex:1; border-left: 5px solid orange;">
+                <h3>Resellers</h3>
+                <h1>16</h1>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Recent Activity</h3>
+            <p>New Order from Sudeera (Manual Entry)</p>
+            <p>New Reseller Request: Kasun</p>
+            <p>Stock Update: Oil Sprayer (Low Stock)</p>
+        </div>
+        
+        <p><em>Note: Since there is no database, please check your WhatsApp for real-time order details.</em></p>
+    </div>
 </body>
 </html>
