@@ -74,6 +74,8 @@
         .header-actions { display: flex; gap: 20px; align-items: center; }
         .home-btn { color: var(--neon-blue); text-decoration: none; font-size: 24px; transition: 0.3s; }
         .home-btn:hover { color: var(--neon-red); transform: rotate(360deg); }
+        .icon-btn { color: var(--neon-blue); text-decoration: none; font-size: 24px; transition: 0.3s; }
+        .icon-btn:hover { color: var(--neon-red); transform: rotate(360deg); }
 
         .cart-icon-wrapper { cursor: pointer; position: relative; transition: transform 0.3s; }
         .cart-icon-wrapper:hover { transform: scale(1.1); }
@@ -388,6 +390,7 @@
         <a href="index.html" class="logo">LAABA KADE</a>
         <div class="header-actions">
             <a href="index.html" class="home-btn" title="Home"><i class="fas fa-home"></i></a>
+            <a href="reselldash.html" class="icon-btn" title="dash"><i class="fas fa-eye"></i></a>
             <div class="cart-icon-wrapper" onclick="openCart()">
                 <i class="fas fa-shopping-cart fa-lg" style="color: white;"></i>
                 <div class="cart-count" id="cartCount">0</div>
