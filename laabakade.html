@@ -40,7 +40,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- Scrollbar --- */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: var(--neon-red); border-radius: 4px; }
@@ -69,7 +68,22 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px rgba(255,0,85,0.5);
             letter-spacing: 2px;
+            text-decoration: none;
         }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .home-btn {
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-size: 24px;
+            transition: 0.3s;
+        }
+        .home-btn:hover { color: var(--neon-red); transform: rotate(360deg); }
 
         .cart-icon-wrapper {
             cursor: pointer;
@@ -115,7 +129,7 @@
             gap: 30px;
         }
 
-        /* --- Card Design (Fire/Glass) --- */
+        /* --- Card Design --- */
         .product-card {
             background: var(--card-bg);
             border-radius: 20px;
@@ -226,7 +240,7 @@
 
         .modal-body { padding: 30px; }
 
-        /* --- Product Detail Modal Styles --- */
+        /* --- Product Detail Modal --- */
         .detail-wrapper { display: flex; flex-wrap: wrap; gap: 30px; }
         .detail-gallery { flex: 1; min-width: 300px; }
         .main-img { width: 100%; border-radius: 10px; border: 1px solid #333; margin-bottom: 10px; }
@@ -253,22 +267,37 @@
         .feedback-section { margin-top: 20px; border-top: 1px solid #333; padding-top: 15px; }
         .feedback-item { display: flex; gap: 10px; margin-bottom: 15px; background: #0f0f0f; padding: 10px; border-radius: 8px; }
 
-        /* --- Cart/Checkout Modal Styles (Split) --- */
+        /* --- Cart/Checkout Modal Styles --- */
         .checkout-step { display: none; }
         .checkout-step.active { display: block; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
 
-        /* Cart List Style */
-        .cart-items-list { margin-bottom: 20px; max-height: 300px; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #161616; margin-bottom: 10px; border-radius: 10px; border: 1px solid #222; }
+        /* Cart Item Styles */
+        .cart-item { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px; background: #161616; margin-bottom: 10px; border-radius: 10px; border: 1px solid #222; 
+        }
         .cart-item-info { display: flex; align-items: center; gap: 15px; }
         .cart-item-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
-        .cart-item-name { font-weight: 600; color: var(--neon-blue); }
-        .cart-item-variant { font-size: 12px; color: #777; }
+        .cart-item-details h4 { font-size: 14px; color: var(--neon-blue); }
+        .cart-item-details p { font-size: 11px; color: #888; }
+        
+        /* Quantity Controls */
+        .qty-controls { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
+        .qty-btn { 
+            width: 25px; height: 25px; background: #333; color: white; border: none; 
+            border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .qty-btn:hover { background: var(--neon-red); }
+        .qty-val { font-size: 14px; font-weight: bold; }
+
+        .delete-btn { color: #ff3333; background: none; border: none; cursor: pointer; font-size: 18px; }
+        .delete-btn:hover { transform: scale(1.2); }
 
         .cart-summary { background: #1a0510; padding: 20px; border-radius: 10px; border: 1px solid #330011; text-align: right; }
         .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; color: #ccc; font-size: 14px; }
         .summary-total { font-size: 24px; color: var(--neon-red); font-weight: 800; margin-top: 15px; font-family: 'Orbitron'; }
+        .discount-row { color: var(--neon-blue); font-weight: bold; }
 
         /* Form Style */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -280,10 +309,8 @@
         }
         .form-control:focus { outline: none; border-color: var(--neon-purple); box-shadow: 0 0 10px rgba(188, 19, 254, 0.2); }
 
-        /* --- Animations --- */
         @keyframes fadeInDown { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
 
-        /* --- Toast --- */
         #toast {
             visibility: hidden; min-width: 250px; background: #222; color: #fff;
             text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 2000;
@@ -294,21 +321,26 @@
         @keyframes popUp { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
         @keyframes fadeOut { from {opacity: 1;} to {opacity: 0;} }
 
-        /* --- Responsive --- */
         @media(max-width: 768px) {
             .detail-wrapper { flex-direction: column; }
             .form-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2rem; }
+            .cart-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .cart-item-info { width: 100%; }
+            .cart-item-actions { width: 100%; display: flex; justify-content: space-between; align-items: center; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">LAABA KADE</div>
-        <div class="cart-icon-wrapper" onclick="openCart()">
-            <i class="fas fa-shopping-cart fa-lg" style="color: white;"></i>
-            <div class="cart-count" id="cartCount">0</div>
+        <a href="index.html" class="logo">LAABA KADE</a>
+        <div class="header-actions">
+            <a href="index.html" class="home-btn" title="Home"><i class="fas fa-home"></i></a>
+            <div class="cart-icon-wrapper" onclick="openCart()">
+                <i class="fas fa-shopping-cart fa-lg" style="color: white;"></i>
+                <div class="cart-count" id="cartCount">0</div>
+            </div>
         </div>
     </header>
 
@@ -376,8 +408,9 @@
                         <div style="margin-top:20px; border-top:1px dashed #333; padding-top:15px;">
                             <button class="btn" style="width:100%; background:#222; color:#f00; font-size:10px;" onclick="toggleReport()">Report Item</button>
                             <div id="reportForm" style="display:none; margin-top:10px;">
-                                <textarea class="form-control" id="reportReason" placeholder="Issue..."></textarea>
-                                <button class="btn btn-buy" style="width:100%; margin-top:5px;" onclick="submitReport()">Submit</button>
+                                <textarea class="form-control" id="reportReason" placeholder="Issue Description..."></textarea>
+                                <input type="text" class="form-control" id="reportProof" placeholder="Proof Photo URL (Optional)" style="margin-top:5px;">
+                                <button class="btn btn-buy" style="width:100%; margin-top:5px;" onclick="submitReport()">Submit Report via WhatsApp</button>
                             </div>
                         </div>
                     </div>
@@ -386,7 +419,7 @@
         </div>
     </div>
 
-    <!-- Cart & Checkout Modal (Split View) -->
+    <!-- Cart & Checkout Modal -->
     <div id="checkoutModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -414,9 +447,19 @@
                             <span>Tax (5%)</span>
                             <span id="sumTax">Rs. 0.00</span>
                         </div>
+                        <div class="summary-row discount-row" id="promoRow" style="display:none;">
+                            <span>Discount</span>
+                            <span id="sumDiscount">-Rs. 0.00</span>
+                        </div>
                         <div class="summary-total">
                             Rs. <span id="sumTotal">0.00</span>
                         </div>
+                        
+                        <div style="margin-top:15px; display:flex; gap:10px;">
+                            <input type="text" id="promoCode" class="form-control" placeholder="Promo Code (LAABA50)">
+                            <button class="btn btn-cart" onclick="applyPromoCode()">Apply</button>
+                        </div>
+
                         <button class="btn btn-buy" style="width:100%; margin-top:20px; padding:15px; font-size:16px;" onclick="goToCheckout()">
                             Proceed to Checkout <i class="fas fa-arrow-right"></i>
                         </button>
@@ -479,12 +522,10 @@
                                 </select>
                             </div>
                             
+                            <!-- Promo display in checkout too -->
                             <div class="form-group">
-                                <label>Promo Code</label>
-                                <div style="display:flex; gap:5px;">
-                                    <input type="text" class="form-control" placeholder="CODE">
-                                    <button class="btn btn-cart">Apply</button>
-                                </div>
+                                <label>Applied Promo</label>
+                                <input type="text" class="form-control" id="appliedPromoDisplay" readonly style="background:#222; color:#aaa;">
                             </div>
 
                             <div style="background:#1a0510; padding:15px; border-radius:10px; border:1px solid #330011;">
@@ -511,27 +552,27 @@
     <div id="toast">Message</div>
 
     <script>
-        // Data (Same as previous)
+        // Data
         const products = [
-            { id: 1, name: "Neon Cyber T-Shirt", price: 1500, oldPrice: 2000, discount: "25%", stock: 15, sold: 120, rate: 4.5, freeDelivery: true, warranty: false, returnable: true, deliveryDays: "2-3 Days", shortDesc: "Soft cotton blend t-shirt perfect for daily wear.", longDesc: "Made from 100% high-quality cotton, this t-shirt ensures maximum comfort and durability. Features a modern fit that suits all body types.", feedbacks: [{name: "Kamal", msg: "Good quality fabric.", img: "https://picsum.photos/seed/u1/50/50"}], variants: [{ color: "Red", hex: "#ff0055", price: 1500, img: "https://picsum.photos/seed/p1r/400/400" }, { color: "Blue", hex: "#00e5ff", price: 1500, img: "https://picsum.photos/seed/p1b/400/400" }], sizes: ["S", "M", "L", "XL"], images: ["https://picsum.photos/seed/p1r/400/400", "https://picsum.photos/seed/p1r2/400/400", "https://picsum.photos/seed/p1r3/400/400", "https://picsum.photos/seed/p1r4/400/400"] },
-            { id: 2, name: "Wireless Headphones", price: 4500, oldPrice: 6000, discount: "15%", stock: 5, sold: 45, rate: 4.8, freeDelivery: true, warranty: true, returnable: false, deliveryDays: "1-2 Days", shortDesc: "Noise cancelling wireless headphones.", longDesc: "Experience high-fidelity audio with active noise cancellation. 20-hour battery life with quick charge support.", feedbacks: [{name: "Sara", msg: "Sound is amazing!", img: "https://picsum.photos/seed/u3/50/50"}], variants: [{ color: "White", hex: "#ffffff", price: 4500, img: "https://picsum.photos/seed/p2w/400/400" }, { color: "Black", hex: "#111", price: 4700, img: "https://picsum.photos/seed/p2b/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p2w/400/400", "https://picsum.photos/seed/p2w2/400/400", "https://picsum.photos/seed/p2w3/400/400", "https://picsum.photos/seed/p2w4/400/400"] },
-            { id: 3, name: "Sports Shoes", price: 5500, oldPrice: 7000, discount: "20%", stock: 8, sold: 30, rate: 4.2, freeDelivery: false, warranty: true, returnable: true, deliveryDays: "3-4 Days", shortDesc: "Running shoes with air sole.", longDesc: "Lightweight and durable, designed for professional athletes.", feedbacks: [], variants: [{ color: "Grey", hex: "#7f8c8d", price: 5500, img: "https://picsum.photos/seed/p3g/400/400" }, { color: "Red", hex: "#c0392b", price: 5500, img: "https://picsum.photos/seed/p3r/400/400" }], sizes: ["UK 6", "UK 7", "UK 8"], images: ["https://picsum.photos/seed/p3g/400/400", "https://picsum.photos/seed/p3g2/400/400", "https://picsum.photos/seed/p3g3/400/400", "https://picsum.photos/seed/p3g4/400/400"] },
-            { id: 4, name: "Smart Watch", price: 8000, oldPrice: 12000, discount: "33%", stock: 12, sold: 85, rate: 4.6, freeDelivery: true, warranty: true, returnable: true, deliveryDays: "2 Days", shortDesc: "Fitness tracker with heart rate.", longDesc: "Track your steps, sleep, and heart rate with precision.", feedbacks: [{name: "Dasun", msg: "Battery life is super.", img: "https://picsum.photos/seed/u4/50/50"}], variants: [{ color: "Silver", hex: "#bdc3c7", price: 8000, img: "https://picsum.photos/seed/p4s/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p4s/400/400", "https://picsum.photos/seed/p4s2/400/400", "https://picsum.photos/seed/p4s3/400/400", "https://picsum.photos/seed/p4s4/400/400"] },
-            { id: 5, name: "Leather Wallet", price: 1200, oldPrice: 1500, discount: "20%", stock: 50, sold: 200, rate: 4.0, freeDelivery: false, warranty: false, returnable: false, deliveryDays: "4 Days", shortDesc: "Genuine leather bi-fold wallet.", longDesc: "Classic design with multiple card slots.", feedbacks: [], variants: [{ color: "Brown", hex: "#8B4513", price: 1200, img: "https://picsum.photos/seed/p5b/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p5b/400/400", "https://picsum.photos/seed/p5b2/400/400", "https://picsum.photos/seed/p5b3/400/400", "https://picsum.photos/seed/p5b4/400/400"] },
-            { id: 6, name: "Sunglasses", price: 2500, oldPrice: 3000, discount: "16%", stock: 20, sold: 60, rate: 4.3, freeDelivery: true, warranty: false, returnable: false, deliveryDays: "2 Days", shortDesc: "UV protection polarized glasses.", longDesc: "Stylish aviator design providing 100% UV protection.", feedbacks: [], variants: [{ color: "Green", hex: "#2ecc71", price: 2500, img: "https://picsum.photos/seed/p6g/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p6g/400/400", "https://picsum.photos/seed/p6g2/400/400", "https://picsum.photos/seed/p6g3/400/400", "https://picsum.photos/seed/p6g4/400/400"] },
+            { id: 1, name: "Neon Cyber T-Shirt", price: 1500, oldPrice: 2000, discount: "25%", stock: 15, sold: 120, rate: 4.5, freeDelivery: true, warranty: false, returnable: true, deliveryDays: "2-3 Days", shortDesc: "Soft cotton blend t-shirt perfect for daily wear.", longDesc: "Made from 100% high-quality cotton, this t-shirt ensures maximum comfort and durability.", feedbacks: [{name: "Kamal", msg: "Good quality fabric.", img: "https://picsum.photos/seed/u1/50/50"}], variants: [{ color: "Red", hex: "#ff0055", price: 1500, img: "https://picsum.photos/seed/p1r/400/400" }, { color: "Blue", hex: "#00e5ff", price: 1500, img: "https://picsum.photos/seed/p1b/400/400" }], sizes: ["S", "M", "L", "XL"], images: ["https://picsum.photos/seed/p1r/400/400", "https://picsum.photos/seed/p1r2/400/400", "https://picsum.photos/seed/p1r3/400/400", "https://picsum.photos/seed/p1r4/400/400"] },
+            { id: 2, name: "Wireless Headphones", price: 4500, oldPrice: 6000, discount: "15%", stock: 5, sold: 45, rate: 4.8, freeDelivery: true, warranty: true, returnable: false, deliveryDays: "1-2 Days", shortDesc: "Noise cancelling wireless headphones.", longDesc: "Experience high-fidelity audio with active noise cancellation.", feedbacks: [{name: "Sara", msg: "Sound is amazing!", img: "https://picsum.photos/seed/u3/50/50"}], variants: [{ color: "White", hex: "#ffffff", price: 4500, img: "https://picsum.photos/seed/p2w/400/400" }, { color: "Black", hex: "#111", price: 4700, img: "https://picsum.photos/seed/p2b/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p2w/400/400", "https://picsum.photos/seed/p2w2/400/400", "https://picsum.photos/seed/p2w3/400/400", "https://picsum.photos/seed/p2w4/400/400"] },
+            { id: 3, name: "Sports Shoes", price: 5500, oldPrice: 7000, discount: "20%", stock: 8, sold: 30, rate: 4.2, freeDelivery: false, warranty: true, returnable: true, deliveryDays: "3-4 Days", shortDesc: "Running shoes with air sole.", longDesc: "Lightweight and durable.", feedbacks: [], variants: [{ color: "Grey", hex: "#7f8c8d", price: 5500, img: "https://picsum.photos/seed/p3g/400/400" }, { color: "Red", hex: "#c0392b", price: 5500, img: "https://picsum.photos/seed/p3r/400/400" }], sizes: ["UK 6", "UK 7", "UK 8"], images: ["https://picsum.photos/seed/p3g/400/400", "https://picsum.photos/seed/p3g2/400/400", "https://picsum.photos/seed/p3g3/400/400", "https://picsum.photos/seed/p3g4/400/400"] },
+            { id: 4, name: "Smart Watch", price: 8000, oldPrice: 12000, discount: "33%", stock: 12, sold: 85, rate: 4.6, freeDelivery: true, warranty: true, returnable: true, deliveryDays: "2 Days", shortDesc: "Fitness tracker with heart rate.", longDesc: "Track your steps, sleep, and heart rate.", feedbacks: [{name: "Dasun", msg: "Battery life is super.", img: "https://picsum.photos/seed/u4/50/50"}], variants: [{ color: "Silver", hex: "#bdc3c7", price: 8000, img: "https://picsum.photos/seed/p4s/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p4s/400/400", "https://picsum.photos/seed/p4s2/400/400", "https://picsum.photos/seed/p4s3/400/400", "https://picsum.photos/seed/p4s4/400/400"] },
+            { id: 5, name: "Leather Wallet", price: 1200, oldPrice: 1500, discount: "20%", stock: 50, sold: 200, rate: 4.0, freeDelivery: false, warranty: false, returnable: false, deliveryDays: "4 Days", shortDesc: "Genuine leather bi-fold wallet.", longDesc: "Classic design.", feedbacks: [], variants: [{ color: "Brown", hex: "#8B4513", price: 1200, img: "https://picsum.photos/seed/p5b/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p5b/400/400", "https://picsum.photos/seed/p5b2/400/400", "https://picsum.photos/seed/p5b3/400/400", "https://picsum.photos/seed/p5b4/400/400"] },
+            { id: 6, name: "Sunglasses", price: 2500, oldPrice: 3000, discount: "16%", stock: 20, sold: 60, rate: 4.3, freeDelivery: true, warranty: false, returnable: false, deliveryDays: "2 Days", shortDesc: "UV protection polarized glasses.", longDesc: "Stylish aviator design.", feedbacks: [], variants: [{ color: "Green", hex: "#2ecc71", price: 2500, img: "https://picsum.photos/seed/p6g/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p6g/400/400", "https://picsum.photos/seed/p6g2/400/400", "https://picsum.photos/seed/p6g3/400/400", "https://picsum.photos/seed/p6g4/400/400"] },
             { id: 7, name: "Gaming Backpack", price: 3500, oldPrice: 4500, discount: "22%", stock: 10, sold: 40, rate: 4.7, freeDelivery: true, warranty: true, returnable: true, deliveryDays: "3 Days", shortDesc: "Water resistant travel backpack.", longDesc: "Large capacity with laptop compartment.", feedbacks: [], variants: [{ color: "Navy", hex: "#34495e", price: 3500, img: "https://picsum.photos/seed/p7n/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p7n/400/400", "https://picsum.photos/seed/p7n2/400/400", "https://picsum.photos/seed/p7n3/400/400", "https://picsum.photos/seed/p7n4/400/400"] },
-            { id: 8, name: "Denim Jacket", price: 4000, oldPrice: 5000, discount: "20%", stock: 7, sold: 25, rate: 4.4, freeDelivery: false, warranty: false, returnable: true, deliveryDays: "5 Days", shortDesc: "Vintage style denim jacket.", longDesc: "Classic blue denim jacket suitable for all seasons.", feedbacks: [], variants: [{ color: "Blue", hex: "#2980b9", price: 4000, img: "https://picsum.photos/seed/p8b/400/400" }], sizes: ["M", "L", "XL"], images: ["https://picsum.photos/seed/p8b/400/400", "https://picsum.photos/seed/p8b2/400/400", "https://picsum.photos/seed/p8b3/400/400", "https://picsum.photos/seed/p8b4/400/400"] },
-            { id: 9, name: "Wall Clock", price: 1800, oldPrice: 2500, discount: "28%", stock: 30, sold: 150, rate: 4.1, freeDelivery: false, warranty: true, returnable: false, deliveryDays: "4 Days", shortDesc: "Silent quartz movement clock.", longDesc: "Modern minimalist design for living room.", feedbacks: [], variants: [{ color: "White", hex: "#ffffff", price: 1800, img: "https://picsum.photos/seed/p9w/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p9w/400/400", "https://picsum.photos/seed/p9w2/400/400", "https://picsum.photos/seed/p9w3/400/400", "https://picsum.photos/seed/p9w4/400/400"] },
+            { id: 8, name: "Denim Jacket", price: 4000, oldPrice: 5000, discount: "20%", stock: 7, sold: 25, rate: 4.4, freeDelivery: false, warranty: false, returnable: true, deliveryDays: "5 Days", shortDesc: "Vintage style denim jacket.", longDesc: "Classic blue denim jacket.", feedbacks: [], variants: [{ color: "Blue", hex: "#2980b9", price: 4000, img: "https://picsum.photos/seed/p8b/400/400" }], sizes: ["M", "L", "XL"], images: ["https://picsum.photos/seed/p8b/400/400", "https://picsum.photos/seed/p8b2/400/400", "https://picsum.photos/seed/p8b3/400/400", "https://picsum.photos/seed/p8b4/400/400"] },
+            { id: 9, name: "Wall Clock", price: 1800, oldPrice: 2500, discount: "28%", stock: 30, sold: 150, rate: 4.1, freeDelivery: false, warranty: true, returnable: false, deliveryDays: "4 Days", shortDesc: "Silent quartz movement clock.", longDesc: "Modern minimalist design.", feedbacks: [], variants: [{ color: "White", hex: "#ffffff", price: 1800, img: "https://picsum.photos/seed/p9w/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p9w/400/400", "https://picsum.photos/seed/p9w2/400/400", "https://picsum.photos/seed/p9w3/400/400", "https://picsum.photos/seed/p9w4/400/400"] },
             { id: 10, name: "Gaming Mouse", price: 2200, oldPrice: 2800, discount: "21%", stock: 18, sold: 75, rate: 4.6, freeDelivery: true, warranty: true, returnable: false, deliveryDays: "2 Days", shortDesc: "RGB wired gaming mouse.", longDesc: "High precision sensor with customizable RGB.", feedbacks: [], variants: [{ color: "Black", hex: "#000", price: 2200, img: "https://picsum.photos/seed/p10b/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p10b/400/400", "https://picsum.photos/seed/p10b2/400/400", "https://picsum.photos/seed/p10b3/400/400", "https://picsum.photos/seed/p10b4/400/400"] }
         ];
 
-        let cart = [];
-        let currentViewProduct = null;
-        let currentVariantIndex = 0;
-        let currentSize = "";
+        // State
+        let cart = JSON.parse(localStorage.getItem('laabaCart')) || [];
+        let appliedPromo = null; // Stores {code: "LAABA50", discount: 0.5}
 
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
+            updateCartCount();
         });
 
         function renderProducts() {
@@ -559,6 +600,17 @@
                 `;
                 container.appendChild(card);
             });
+        }
+
+        // --- LocalStorage Helper ---
+        function saveCart() {
+            localStorage.setItem('laabaCart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').innerText = totalCount;
         }
 
         // --- Product Modal ---
@@ -608,62 +660,152 @@
         // --- Cart Logic ---
         function addToCart(id) {
             const p = products.find(x => x.id === id);
-            cart.push({ name: p.name, variant: p.variants[0].color, size: p.sizes[0], price: p.variants[0].price, img: p.variants[0].img });
-            updateCartCount();
+            const itemObj = { 
+                id: id, 
+                name: p.name, 
+                variant: p.variants[0].color, 
+                size: p.sizes[0], 
+                price: parseInt(p.variants[0].price), 
+                img: p.variants[0].img,
+                qty: 1,
+                uniqueId: id + '_' + p.variants[0].color + '_' + p.sizes[0] // unique key for same item variations
+            };
+            
+            const existingIndex = cart.findIndex(i => i.uniqueId === itemObj.uniqueId);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push(itemObj);
+            }
+            saveCart();
             showToast("Added to Cart!");
         }
 
         function addToCartFromModal() {
-            cart.push({ name: currentViewProduct.name, variant: currentViewProduct.variants[currentVariantIndex].color, size: currentSize, price: currentViewProduct.variants[currentVariantIndex].price, img: currentViewProduct.variants[currentVariantIndex].img });
-            updateCartCount();
+            const p = currentViewProduct;
+            const v = p.variants[currentVariantIndex];
+            const itemObj = { 
+                id: p.id, 
+                name: p.name, 
+                variant: v.color, 
+                size: currentSize, 
+                price: parseInt(v.price), 
+                img: v.img,
+                qty: 1,
+                uniqueId: p.id + '_' + v.color + '_' + currentSize
+            };
+
+            const existingIndex = cart.findIndex(i => i.uniqueId === itemObj.uniqueId);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push(itemObj);
+            }
+            saveCart();
             showToast("Added to Cart!");
         }
 
         function buyNow(id) { cart = []; addToCart(id); openCart(); }
         function buyNowFromModal() { cart = []; addToCartFromModal(); openCart(); }
 
-        function updateCartCount() { document.getElementById('cartCount').innerText = cart.length; }
-
         // --- Checkout Modal Steps ---
         function openCart() {
             document.getElementById('checkoutModal').style.display = 'block';
-            backToCart(); // Reset to step 1
+            backToCart();
             renderCartList();
         }
 
         function renderCartList() {
             const list = document.getElementById('cartItemsList');
             list.innerHTML = '';
-            let total = 0;
+            let subtotal = 0;
+
             if(cart.length === 0) {
                 list.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">Your cart is empty</div>';
             } else {
-                cart.forEach((item, i) => {
-                    total += parseInt(item.price);
+                cart.forEach((item, index) => {
+                    subtotal += (item.price * item.qty);
                     list.innerHTML += `
                         <div class="cart-item">
                             <div class="cart-item-info">
                                 <img src="${item.img}" class="cart-item-img">
-                                <div>
-                                    <div class="cart-item-name">${item.name}</div>
-                                    <div class="cart-item-variant">${item.variant} | ${item.size}</div>
+                                <div class="cart-item-details">
+                                    <h4>${item.name}</h4>
+                                    <p>${item.variant} | ${item.size}</p>
+                                    <p>Rs. ${item.price}</p>
                                 </div>
                             </div>
-                            <div style="font-weight:bold; color:white;">Rs. ${item.price}</div>
+                            <div class="cart-item-actions">
+                                <div class="qty-controls">
+                                    <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
+                                    <span class="qty-val">${item.qty}</span>
+                                    <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
+                                </div>
+                                <button class="delete-btn" onclick="deleteItem(${index})"><i class="fas fa-trash"></i></button>
+                            </div>
                         </div>
                     `;
                 });
             }
 
-            const delivery = total > 5000 ? 0 : 500;
-            const tax = Math.round(total * 0.05);
-            const final = total + delivery + tax;
+            // Calculations
+            const delivery = subtotal > 5000 ? 0 : 500;
+            const tax = Math.round(subtotal * 0.05);
+            let discountAmount = 0;
 
-            document.getElementById('sumSubtotal').innerText = `Rs. ${total}`;
+            if (appliedPromo) {
+                // Discount is percentage
+                discountAmount = Math.round((subtotal + delivery + tax) * (appliedPromo.discount / 100));
+                // Or simple amount calculation if needed. Let's do % off total.
+            }
+
+            const final = subtotal + delivery + tax - discountAmount;
+
+            document.getElementById('sumSubtotal').innerText = `Rs. ${subtotal}`;
             document.getElementById('sumDelivery').innerText = delivery === 0 ? "Free" : `Rs. ${delivery}`;
             document.getElementById('sumTax').innerText = `Rs. ${tax}`;
+            
+            if(appliedPromo) {
+                document.getElementById('promoRow').style.display = 'flex';
+                document.getElementById('sumDiscount').innerText = `-Rs. ${discountAmount}`;
+                document.getElementById('appliedPromoDisplay').value = appliedPromo.code;
+            } else {
+                document.getElementById('promoRow').style.display = 'none';
+                document.getElementById('appliedPromoDisplay').value = "None";
+            }
+
             document.getElementById('sumTotal').innerText = final;
             document.getElementById('finalTotalConfirm').innerText = final;
+        }
+
+        function updateQty(index, change) {
+            cart[index].qty += change;
+            if (cart[index].qty < 1) cart[index].qty = 1;
+            saveCart();
+            renderCartList();
+        }
+
+        function deleteItem(index) {
+            if(confirm("Remove this item?")) {
+                cart.splice(index, 1);
+                saveCart();
+                renderCartList();
+            }
+        }
+
+        function applyPromoCode() {
+            const code = document.getElementById('promoCode').value.trim().toUpperCase();
+            if (code === "LAABA50") {
+                appliedPromo = { code: "LAABA50", discount: 50 }; // 50% off (Demo huge discount)
+                showToast("Promo Applied! 50% OFF");
+            } else if (code === "DISCOUNT10") {
+                appliedPromo = { code: "DISCOUNT10", discount: 10 }; // 10% off
+                showToast("Promo Applied! 10% OFF");
+            } else {
+                appliedPromo = null;
+                showToast("Invalid Promo Code");
+            }
+            renderCartList();
         }
 
         function goToCheckout() {
@@ -679,7 +821,7 @@
             document.getElementById('stepCart').classList.add('active');
         }
 
-        // --- WhatsApp ---
+        // --- WhatsApp & Report ---
         function confirmOrder() {
             const name = document.getElementById('cusName').value;
             const address = document.getElementById('cusAddress').value;
@@ -695,20 +837,43 @@
             msg += `*Phone:* ${phone} (Alt: ${document.getElementById('cusPhone2').value})\n`;
             msg += `*Address:* ${address}, ${district}\n\n`;
             msg += `*Items:*\n`;
-            let total = 0;
+            let subtotal = 0;
             cart.forEach((item, i) => {
-                msg += `${i+1}. ${item.name} (${item.variant}, ${item.size}) - Rs. ${item.price}\n`;
-                total += parseInt(item.price);
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+                msg += `${i+1}. ${item.name} (${item.variant}, ${item.size}) x${item.qty} - Rs. ${itemTotal}\n`;
             });
 
-            const delivery = total > 5000 ? 0 : 500;
-            const tax = Math.round(total * 0.05);
-            const final = total + delivery + tax;
+            const delivery = subtotal > 5000 ? 0 : 500;
+            const tax = Math.round(subtotal * 0.05);
+            let discountAmount = 0;
+            if(appliedPromo) discountAmount = Math.round((subtotal + delivery + tax) * (appliedPromo.discount/100));
+            
+            const final = subtotal + delivery + tax - discountAmount;
 
             msg += `\n*Payment:* ${document.getElementById('payMethod').value}\n`;
+            if(appliedPromo) msg += `*Promo:* ${appliedPromo.code}\n`;
             msg += `*Total: Rs. ${final}*\n`;
 
             window.open(`https://wa.me/94775048455?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function submitReport() {
+            const reason = document.getElementById('reportReason').value;
+            const proof = document.getElementById('reportProof').value;
+            const p = currentViewProduct;
+            
+            if(!reason) { showToast("Enter reason"); return; }
+
+            let msg = `*REPORT ISSUE - Laaba Kade*\n\n`;
+            msg += `*Product:* ${p.name}\n`;
+            msg += `*Issue:* ${reason}\n`;
+            if(proof) msg += `*Proof URL:* ${proof}\n`;
+            msg += `\nSent from Online Store`;
+
+            window.open(`https://wa.me/94775048455?text=${encodeURIComponent(msg)}`, '_blank');
+            document.getElementById('reportForm').style.display = 'none';
+            showToast("Report Sent via WhatsApp");
         }
 
         // --- Utils ---
@@ -719,8 +884,6 @@
             setTimeout(() => x.className = x.className.replace("show", ""), 3000);
         }
         function toggleReport() { const f = document.getElementById('reportForm'); f.style.display = f.style.display === 'block' ? 'none' : 'block'; }
-        function submitReport() { document.getElementById('reportForm').style.display = 'none'; showToast("Report Sent"); }
-
     </script>
 </body>
 </html>
