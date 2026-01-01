@@ -2,34 +2,375 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About Us - Ru Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMC Stores | About Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        body { background: #121212; color: #fff; font-family: sans-serif; padding: 40px; text-align: center; }
-        .container { max-width: 800px; margin: auto; }
-        h1 { color: #bb86fc; }
-        .stats { display: flex; justify-content: space-around; margin: 40px 0; background: #1e1e1e; padding: 20px; border-radius: 10px; }
+        /* CSS Variables - Dark Theme & Colorful Accents */
+        :root {
+            --bg-dark: #050505;
+            --bg-panel: #111111;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --primary-accent: #6a11cb; /* Deep Purple */
+            --secondary-accent: #2575fc; /* Bright Blue */
+            --electric-yellow: #ffc107; /* New color for Laaba Kade */
+            --gradient-main: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            --neon-shadow: 0 0 20px rgba(37, 117, 252, 0.3);
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        /* Utility */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        /* Home Button Style */
+        .home-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .home-btn:hover {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(106,17,203,0.2) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--secondary-accent);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--primary-accent);
+            border-radius: 50px;
+            color: var(--primary-accent);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(106, 17, 203, 0.1);
+        }
+
+        /* Ecosystem Section (The Main Structure) */
+        .ecosystem-section {
+            padding: 50px 0 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-panel);
+            border-radius: 24px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Highlighting the MAIN Brand */
+        .card.main-brand {
+            background: linear-gradient(180deg, rgba(37,117,252,0.1) 0%, rgba(5,5,5,0) 100%);
+            border: 1px solid rgba(37, 117, 252, 0.3);
+        }
+        
+        .card.main-brand:hover {
+            border-color: var(--secondary-accent);
+            box-shadow: var(--neon-shadow);
+        }
+
+        .card.main-brand::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--secondary-accent);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .card .tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .main-brand h3 {
+            color: var(--secondary-accent);
+        }
+
+        /* Specific Colors for Sub-brands */
+        /* RU Online Store - Pink */
+        .ru-brand .card-icon { color: #ff0080; } 
+        .ru-brand:hover { border-color: #ff0080; box-shadow: 0 0 20px rgba(255, 0, 128, 0.2); }
+
+        /* Laaba Kade - Yellow (Electric) */
+        .laaba-brand .card-icon { color: var(--electric-yellow); }
+        .laaba-brand:hover { border-color: var(--electric-yellow); box-shadow: 0 0 20px rgba(255, 193, 7, 0.2); }
+
+
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 80px;
+            padding: 40px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 800;
+            display: block;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3rem; }
+            .grid-container { grid-template-columns: 1fr; }
+            .card.main-brand { order: -1; } /* Keep Main brand at top on mobile */
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>About Ru Online Store</h1>
-        <p>Welcome to Ru Online Store (Laaba Kade). I am <strong>Kaawya Chandrasekara</strong>, the owner of this business.</p>
-        
-        <p>Started in 2024, we have grown significantly by 2025/2026. We are still in the early stages but aim to provide the best quality products to our customers.</p>
-        
-        <div class="stats">
-            <div><h2>2+</h2><p>Years Experience</p></div>
-            <div><h2>150+</h2><p>Orders Completed</p></div>
-            <div><h2>100%</h2><p>Customer Satisfaction</p></div>
-        </div>
 
-        <h3>Contact Information</h3>
-        <p>Email: dmkaawya@gmail.com</p>
-        <p>WhatsApp: 0775048455</p>
-        <p>Social Media: @dmkaawya</p>
-        
-        <br>
-        <a href="index.html" style="color: cyan;">Back to Home</a>
-    </div>
+    <!-- Header -->
+    <header>
+        <div class="container nav-flex">
+            <div class="logo">DMC STORES</div>
+            <!-- Link to index.html -->
+            <a href="index.html" class="home-btn">Home</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <span class="badge">Retail Empire</span>
+            <h1>More Than Just a Store.<br><span>We Are an Ecosystem.</span></h1>
+            <p>Welcome to the future of retail. We bring together flagship products, global dropshipping, and essential electric solutions under one powerful roof.</p>
+        </div>
+    </section>
+
+    <!-- The Ecosystem Grid -->
+    <section class="ecosystem-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Brands</h2>
+                <p>Explore the diverse world of DMC Stores.</p>
+            </div>
+
+            <div class="grid-container">
+                
+                <!-- BRAND 1: MAIN -->
+                <article class="card main-brand">
+                    <div>
+                        <div class="card-icon">🏢</div>
+                        <h3>DMC Stores</h3>
+                        <span class="tag">The Main Hub</span>
+                        <p>The central pillar of our business. DMC Stores acts as the flagship entity, managing high-quality product sales, logistics, and customer excellence.</p>
+                    </div>
+                </article>
+
+                <!-- BRAND 2: SUB -->
+                <article class="card ru-brand">
+                    <div>
+                        <div class="card-icon">📦</div>
+                        <h3>RU Online Store</h3>
+                        <span class="tag">Dropshipping Expert</span>
+                        <p>Specializing in global dropshipping solutions. We connect customers worldwide with trending products, offering seamless delivery without inventory management.</p>
+                    </div>
+                </article>
+
+                <!-- BRAND 3: SUB (UPDATED) -->
+                <article class="card laaba-brand">
+                    <div>
+                        <div class="card-icon">⚡</div>
+                        <h3>Laaba Kade</h3>
+                        <span class="tag">Electric Products</span>
+                        <p>Powering your life with the best electronics. From household appliances to modern gadgets, Laaba Kade provides top-quality electric solutions.</p>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="container">
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number">15K+</span>
+                <span class="stat-label">Orders Fulfilled</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Powerful Brands</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Customer Support</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; color: #555;">
+        <p>&copy; 2024 DMC Stores. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>
