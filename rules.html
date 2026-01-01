@@ -1,20 +1,336 @@
-<!-- rules.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rules</title>
+    <title>Rules & Regulations | DMC Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-panel: #0f0f0f;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+            --accent-color: #6a11cb; /* Purple */
+            --accent-blue: #2575fc; /* Blue */
+            --accent-red: #ff4757; /* Red for important rules */
+            --gradient-main: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .home-link {
+            position: absolute;
+            left: 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
+        }
+
+        .home-link:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Content Box */
+        .rules-card {
+            background: var(--bg-panel);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top Glow */
+        .rules-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-main);
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* Rule List Styling */
+        .rule-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .rule-item:last-child {
+            border-bottom: none;
+        }
+
+        .rule-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-number {
+            background: rgba(255, 255, 255, 0.1);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+        }
+
+        .rule-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding-left: 40px; /* Align with text */
+        }
+
+        .warning-text {
+            color: var(--accent-red);
+            font-weight: 500;
+        }
+
+        /* Agreement Section */
+        .agreement-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-muted);
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        input[type="checkbox"]:checked {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: '✔';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .label-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Back Button (Hidden by default) */
+        .back-btn {
+            background: var(--gradient-main);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0.5;
+            pointer-events: none; /* Clickable only when active */
+            transition: 0.4s;
+            box-shadow: 0 0 0 rgba(0,0,0,0);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn.active {
+            opacity: 1;
+            pointer-events: all;
+            box-shadow: 0 10px 20px rgba(37, 117, 252, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .back-btn:hover.active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+    </style>
 </head>
 <body>
-    <header><!-- Same --></header>
-    <section>
-        <h1>Rules</h1>
-        <ul>
-            <li>No refunds after 7 days.</li>
-            <!-- Add more -->
-        </ul>
-    </section>
-    <footer><!-- Same --></footer>
+
+    <header>
+        <!-- Home Button (Top Left) -->
+        <a href="index.html" class="home-link">
+            ← Back to Home
+        </a>
+        <div class="logo">DMC GROUP</div>
+    </header>
+
+    <div class="container">
+        <div class="rules-card">
+            <h1>Rules & Regulations</h1>
+            <p class="subtitle">Please read the following guidelines carefully before proceeding with your orders or inquiries.</p>
+
+            <!-- Rule 1 -->
+            <div class="rule-item">
+                <div class="rule-title">
+                    <span class="rule-number">1</span>
+                    Order Confirmations
+                </div>
+                <p class="rule-desc">
+                    Once an order is placed via <strong>DMC Stores</strong>, <strong>RU Online</strong>, or <strong>Laaba Kade</strong>, it cannot be canceled after 24 hours. Please verify your items carefully.
+                </p>
+            </div>
+
+            <!-- Rule 2 -->
+            <div class="rule-item">
+                <div class="rule-title">
+                    <span class="rule-number">2</span>
+                    Dropshipping Policy (RU Online)
+                </div>
+                <p class="rule-desc">
+                    For dropshipping items, delivery times may vary based on the supplier location. We are not responsible for delays caused by customs or international shipping carriers.
+                </p>
+            </div>
+
+            <!-- Rule 3 -->
+            <div class="rule-item">
+                <div class="rule-title">
+                    <span class="rule-number">3</span>
+                    Electric Products (Laaba Kade)
+                </div>
+                <p class="rule-desc">
+                    All electric items come with a standard warranty. <span class="warning-text">Do not attempt to repair electric devices yourself as this will void the warranty.</span> Contact support for repairs.
+                </p>
+            </div>
+
+            <!-- Rule 4 -->
+            <div class="rule-item">
+                <div class="rule-title">
+                    <span class="rule-number">4</span>
+                    Payments & Refunds
+                </div>
+                <p class="rule-desc">
+                    We only accept payments via verified methods (Bank Transfer/Cash on Delivery). Refunds are processed within 7-14 working days if the product is defective.
+                </p>
+            </div>
+
+            <!-- Rule 5 -->
+            <div class="rule-item">
+                <div class="rule-title">
+                    <span class="rule-number">5</span>
+                    Respect & Conduct
+                </div>
+                <p class="rule-desc">
+                    Please respect our staff. Abusive language or behavior towards our 200+ team members will result in an immediate ban from our services.
+                </p>
+            </div>
+
+            <!-- Agreement Section -->
+            <div class="agreement-section">
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="agreeCheckbox">
+                    <label for="agreeCheckbox" class="label-text">I have read and agree to the rules.</label>
+                </div>
+
+                <!-- This button links to index.html, but is disabled until checked -->
+                <a href="index.html" id="backButton" class="back-btn">Back to Menu</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript to handle the checkbox logic -->
+    <script>
+        const checkbox = document.getElementById('agreeCheckbox');
+        const backButton = document.getElementById('backButton');
+
+        checkbox.addEventListener('change', function() {
+            if(this.checked) {
+                backButton.classList.add('active');
+            } else {
+                backButton.classList.remove('active');
+            }
+        });
+    </script>
+
 </body>
 </html>
