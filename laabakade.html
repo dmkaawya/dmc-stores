@@ -3,952 +3,549 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laaba Kade - Online Store</title>
-    <!-- Google Fonts for Sinhala and English -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Icon Library -->
+    <title>Laaba Kade - Neon Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #ff6b6b; /* Laaba Red */
-            --secondary: #4ecdc4; /* Teal */
-            --dark: #2d3436;
-            --light: #f7f9fc;
-            --white: #ffffff;
-            --gray: #b2bec3;
-            --success: #2ecc71;
-            --warning: #f1c40f;
+            --neon-red: #ff0055;
+            --neon-blue: #00e5ff;
+            --neon-purple: #bc13fe;
+            --bg-dark: #050505;
+            --card-bg: rgba(20, 20, 20, 0.7);
+            --text-main: #ffffff;
+            --text-dim: #b3b3b3;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', 'Noto Sans Sinhala', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            overflow-x: hidden;
+            background-color: var(--bg-dark);
+            background-image: linear-gradient(45deg, #0a0a0a 25%, #1a0510 50%, #050a1a 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
+            min-height: 100vh;
         }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-red); border-radius: 4px; }
 
         /* --- Header --- */
         header {
-            background: var(--white);
-            padding: 15px 5%;
+            padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255,0,85,0.3);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-icons {
-            display: flex;
-            gap: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255,0,85,0.5);
+            letter-spacing: 2px;
         }
 
         .cart-icon-wrapper {
-            position: relative;
             cursor: pointer;
+            position: relative;
+            transition: transform 0.3s;
         }
+        .cart-icon-wrapper:hover { transform: scale(1.1); }
 
         .cart-count {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--primary);
-            color: white;
-            font-size: 12px;
-            width: 18px;
-            height: 18px;
+            top: -5px; right: -8px;
+            background: var(--neon-blue);
+            color: #000;
+            font-weight: 800;
+            width: 20px; height: 20px;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 0 10px var(--neon-blue);
         }
 
-        /* --- Main Content --- */
-        main {
-            padding: 20px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+        /* --- Main --- */
+        main { padding: 40px 5%; max-width: 1600px; margin: 0 auto; }
 
         .hero {
-            background: linear-gradient(135deg, var(--primary), #ff9f43);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 40px;
             text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
         }
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .hero span { color: var(--neon-red); }
+        .hero p { color: var(--neon-blue); font-size: 1.2rem; letter-spacing: 1px; }
 
-        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-
-        /* --- Product Grid --- */
+        /* --- Grid --- */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
         }
 
+        /* --- Card Design (Fire/Glass) --- */
         .product-card {
-            background: var(--white);
-            border-radius: 15px;
+            background: var(--card-bg);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            backdrop-filter: blur(5px);
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 25px rgba(188, 19, 254, 0.4);
         }
 
         .card-img-container {
-            height: 200px;
-            overflow: hidden;
+            height: 220px;
             position: relative;
+            overflow: hidden;
         }
 
         .card-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
             transition: transform 0.5s;
         }
 
-        .product-card:hover .card-img-container img {
-            transform: scale(1.1);
-        }
+        .product-card:hover .card-img-container img { transform: scale(1.1); }
 
-        .card-details {
-            padding: 15px;
-        }
+        .card-details { padding: 20px; }
 
         .product-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .product-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-        .rating { color: var(--warning); }
-
-        .price-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .price {
             font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: var(--gray);
-            font-size: 14px;
-        }
-
-        .discount-badge {
-            background: #ffeaa7;
-            color: #d35400;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 4px;
             font-weight: 600;
-        }
-
-        .stock-info {
-            font-size: 12px;
             margin-bottom: 10px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
+
+        .price-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .price { color: var(--neon-blue); font-size: 22px; font-weight: 700; }
+        .old-price { color: var(--text-dim); text-decoration: line-through; font-size: 14px; }
         
-        .stock-low { color: #e74c3c; }
-        .stock-ok { color: var(--success); }
-
-        .card-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+        .discount-badge {
+            background: linear-gradient(45deg, var(--neon-red), #ff5500);
+            color: white; padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: bold;
+            box-shadow: 0 0 10px rgba(255,0,85,0.5);
         }
 
+        .stock-info { font-size: 13px; color: var(--text-dim); margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
+        .stock-dot { width: 8px; height: 8px; background: #0f0; border-radius: 50%; box-shadow: 0 0 5px #0f0; }
+        .stock-dot.low { background: #f00; box-shadow: 0 0 5px #f00; }
+
+        .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
         .btn {
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.2s;
-            font-size: 14px;
+            border: none; padding: 12px; border-radius: 10px; cursor: pointer;
+            font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;
         }
 
         .btn-cart {
-            background: var(--light);
-            color: var(--dark);
-            border: 1px solid #ddd;
+            background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue);
         }
-        .btn-cart:hover { background: #e2e6ea; }
+        .btn-cart:hover {
+            background: var(--neon-blue); color: #000;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
 
         .btn-buy {
-            background: var(--primary);
-            color: white;
+            background: linear-gradient(90deg, var(--neon-red), #ff5500);
+            color: white; position: relative; overflow: hidden;
         }
-        .btn-buy:hover { background: #ff5252; }
-
-        .free-delivery {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(46, 204, 113, 0.9);
-            color: white;
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: 600;
+        .btn-buy::before {
+            content:''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
         }
+        .btn-buy:hover::before { left: 100%; }
+        .btn-buy:hover { box-shadow: 0 0 20px var(--neon-red); }
 
-        /* --- Modals (Overlay) --- */
+        /* --- Modals --- */
         .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-            overflow-y: auto;
-            padding: 20px;
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            overflow-y: auto; padding: 20px;
         }
 
         .modal-content {
-            background-color: white;
-            margin: auto;
-            border-radius: 20px;
-            max-width: 900px;
-            width: 100%;
-            position: relative;
-            animation: slideIn 0.3s ease-out;
-            padding: 30px;
+            background: #111; margin: auto; border-radius: 20px;
+            max-width: 800px; width: 100%; position: relative;
+            border: 1px solid var(--neon-purple);
+            box-shadow: 0 0 30px rgba(188, 19, 254, 0.2);
+            animation: zoomIn 0.3s ease;
+            padding: 0; overflow: hidden;
         }
 
-        @keyframes slideIn {
-            from {transform: translateY(50px); opacity: 0;}
-            to {transform: translateY(0); opacity: 1;}
-        }
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 28px;
-            cursor: pointer;
-            color: #aaa;
+        .modal-header {
+            background: linear-gradient(90deg, #220011, #110022);
+            padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center;
         }
+        .modal-header h2 { font-family: 'Orbitron'; color: var(--neon-blue); }
+        .close-btn { color: white; font-size: 28px; cursor: pointer; transition: 0.2s; }
+        .close-btn:hover { color: var(--neon-red); transform: rotate(90deg); }
 
-        /* --- Product Detail Modal Specifics --- */
-        .detail-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
+        .modal-body { padding: 30px; }
 
-        .detail-gallery {
-            flex: 1;
-            min-width: 300px;
-        }
+        /* --- Product Detail Modal Styles --- */
+        .detail-wrapper { display: flex; flex-wrap: wrap; gap: 30px; }
+        .detail-gallery { flex: 1; min-width: 300px; }
+        .main-img { width: 100%; border-radius: 10px; border: 1px solid #333; margin-bottom: 10px; }
+        .thumb-nails { display: flex; gap: 10px; }
+        .thumb { width: 60px; height: 60px; border-radius: 8px; cursor: pointer; object-fit: cover; border: 2px solid transparent; opacity: 0.6; }
+        .thumb.active { border-color: var(--neon-red); opacity: 1; }
 
-        .main-img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 10px;
-        }
-
-        .thumb-nails {
-            display: flex;
-            gap: 10px;
-        }
-
-        .thumb {
-            width: 70px;
-            height: 70px;
-            border-radius: 10px;
-            cursor: pointer;
-            object-fit: cover;
-            border: 2px solid transparent;
-        }
-        .thumb.active { border-color: var(--primary); }
-
-        .detail-info {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .detail-title { font-size: 24px; margin-bottom: 10px; font-weight: 700; }
-        
-        .tags { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;}
-        .tag { background: #eee; padding: 5px 10px; border-radius: 20px; font-size: 12px; }
-        .tag.warranty { background: #e3f2fd; color: #1976d2; }
-        .tag.return { background: #e8f5e9; color: #2e7d32; }
+        .detail-info { flex: 1; min-width: 300px; }
+        .detail-title { font-size: 24px; margin-bottom: 15px; color: white; }
+        .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        .tag { background: #222; padding: 5px 10px; border-radius: 5px; font-size: 12px; border: 1px solid #333; color: #ccc; }
+        .tag.warranty { border-color: var(--neon-blue); color: var(--neon-blue); }
 
         .selectors { margin: 20px 0; }
-        .selector-label { font-weight: 600; margin-bottom: 5px; display: block; }
+        .color-options, .size-options { display: flex; gap: 10px; margin-top: 8px; }
+        .color-opt { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #333; }
+        .color-opt.selected { border-color: white; box-shadow: 0 0 10px white; }
+        .size-opt { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border: 1px solid #333; cursor: pointer; border-radius: 5px; color: #ccc; }
+        .size-opt.selected { background: var(--neon-purple); color: white; border-color: var(--neon-purple); }
+
+        .desc-box { background: #1a1a1a; padding: 15px; border-radius: 10px; border-left: 3px solid var(--neon-blue); margin: 20px 0; }
+        .desc-text { color: #aaa; font-size: 14px; line-height: 1.5; margin-bottom: 10px; }
         
-        .color-options { display: flex; gap: 10px; }
-        .color-opt {
-            width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
-            border: 2px solid #ddd; position: relative;
-        }
-        .color-opt.selected::after {
-            content: '✓'; color: white; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); font-size: 14px;
-        }
+        .feedback-section { margin-top: 20px; border-top: 1px solid #333; padding-top: 15px; }
+        .feedback-item { display: flex; gap: 10px; margin-bottom: 15px; background: #0f0f0f; padding: 10px; border-radius: 8px; }
 
-        .size-options { display: flex; gap: 10px; margin-top: 10px; }
-        .size-opt {
-            padding: 5px 15px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;
-        }
-        .size-opt.selected { background: var(--dark); color: white; border-color: var(--dark); }
+        /* --- Cart/Checkout Modal Styles (Split) --- */
+        .checkout-step { display: none; }
+        .checkout-step.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
 
-        .desc-box {
-            background: #f9f9f9; padding: 15px; border-radius: 10px; margin: 15px 0;
-        }
-        .desc-title { font-weight: 600; margin-bottom: 5px; }
-        .desc-text { font-size: 14px; color: #555; margin-bottom: 10px; }
+        /* Cart List Style */
+        .cart-items-list { margin-bottom: 20px; max-height: 300px; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #161616; margin-bottom: 10px; border-radius: 10px; border: 1px solid #222; }
+        .cart-item-info { display: flex; align-items: center; gap: 15px; }
+        .cart-item-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+        .cart-item-name { font-weight: 600; color: var(--neon-blue); }
+        .cart-item-variant { font-size: 12px; color: #777; }
 
-        .feedback-section { margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
-        .feedback-item { display: flex; gap: 10px; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
-        .feedback-img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .cart-summary { background: #1a0510; padding: 20px; border-radius: 10px; border: 1px solid #330011; text-align: right; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; color: #ccc; font-size: 14px; }
+        .summary-total { font-size: 24px; color: var(--neon-red); font-weight: 800; margin-top: 15px; font-family: 'Orbitron'; }
 
-        /* --- Checkout / Cart Modal --- */
-        .checkout-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .checkout-grid { grid-template-columns: 1fr; }
-            .detail-wrapper { flex-direction: column; }
-        }
-
+        /* Form Style */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--neon-blue); font-size: 12px; text-transform: uppercase; }
         .form-control {
-            width: 100%; padding: 10px; border: 1px solid #ddd;
-            border-radius: 8px; font-size: 14px;
+            width: 100%; background: #0a0a0a; border: 1px solid #333; color: white; padding: 12px;
+            border-radius: 8px; transition: 0.3s;
         }
-        .form-control:focus { outline: none; border-color: var(--primary); }
+        .form-control:focus { outline: none; border-color: var(--neon-purple); box-shadow: 0 0 10px rgba(188, 19, 254, 0.2); }
 
-        .summary-card {
-            background: #fdfdfd; padding: 20px; border-radius: 10px; border: 1px solid #eee;
-        }
-        .summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
-        .summary-total { font-weight: 700; font-size: 18px; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; color: var(--primary); }
+        /* --- Animations --- */
+        @keyframes fadeInDown { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
 
-        .cart-items-list { max-height: 200px; overflow-y: auto; margin-bottom: 20px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #ddd; }
-
-        /* Report Form */
-        .report-container { margin-top: 20px; border-top: 2px dashed #eee; padding-top: 15px; }
-        .report-form { display: none; } /* Hidden initially */
-        
-        /* Toast Notification */
+        /* --- Toast --- */
         #toast {
-            visibility: hidden; min-width: 250px; background-color: #333; color: #fff;
-            text-align: center; border-radius: 5px; padding: 16px; position: fixed;
-            z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 15px;
+            visibility: hidden; min-width: 250px; background: #222; color: #fff;
+            text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 2000;
+            left: 50%; bottom: 30px; transform: translateX(-50%); border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0,229,255,0.3);
         }
-        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        #toast.show { visibility: visible; animation: popUp 0.3s, fadeOut 0.5s 2.5s; }
+        @keyframes popUp { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeOut { from {opacity: 1;} to {opacity: 0;} }
 
+        /* --- Responsive --- */
+        @media(max-width: 768px) {
+            .detail-wrapper { flex-direction: column; }
+            .form-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
-        <div class="logo">
-            <i class="fas fa-store"></i> Laaba Kade
-        </div>
-        <div class="nav-icons">
-            <div class="cart-icon-wrapper" onclick="openCart()">
-                <i class="fas fa-shopping-cart fa-lg"></i>
-                <div class="cart-count" id="cartCount">0</div>
-            </div>
+        <div class="logo">LAABA KADE</div>
+        <div class="cart-icon-wrapper" onclick="openCart()">
+            <i class="fas fa-shopping-cart fa-lg" style="color: white;"></i>
+            <div class="cart-count" id="cartCount">0</div>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main>
         <div class="hero">
-            <h1>සෑම දෙයක්ම අඩු මිලට!</h1>
-            <p>තෝරාගත් භාණ්ඩ ගුණාත්මක බවින් උසස්, ලබා ගන්න පහසුව.</p>
+            <h1>Welcome to <span>Laaba Kade</span></h1>
+            <p>Experience the Future of Shopping</p>
         </div>
 
         <div class="product-grid" id="productContainer">
-            <!-- Products will be injected via JS -->
+            <!-- Products Injected Here -->
         </div>
     </main>
 
     <!-- Product Detail Modal -->
     <div id="productModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
-            <div class="detail-wrapper">
-                <!-- Left: Images -->
-                <div class="detail-gallery">
-                    <img src="" alt="Main Product" id="detailMainImg" class="main-img">
-                    <div class="thumb-nails" id="detailThumbs">
-                        <!-- Thumbs injected JS -->
+            <div class="modal-header">
+                <h2>Product Details</h2>
+                <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="detail-wrapper">
+                    <div class="detail-gallery">
+                        <img src="" alt="" id="detailMainImg" class="main-img">
+                        <div class="thumb-nails" id="detailThumbs"></div>
                     </div>
-                </div>
-                
-                <!-- Right: Info -->
-                <div class="detail-info">
-                    <h2 class="detail-title" id="detailName">Product Name</h2>
-                    <div class="tags">
-                        <span class="tag" id="detailRate">⭐ 4.5</span>
-                        <span class="tag" id="detailStock">In Stock</span>
-                        <span class="tag warranty" id="detailWarranty">No Warranty</span>
-                        <span class="tag return" id="detailReturn">No Returns</span>
-                        <span class="tag" style="background:#ff7675; color:white;" id="detailDiscount">10% OFF</span>
-                    </div>
+                    <div class="detail-info">
+                        <h2 class="detail-title" id="detailName">Product Name</h2>
+                        <div class="tags">
+                            <span class="tag" id="detailRate">⭐ 4.5</span>
+                            <span class="tag warranty" id="detailStock">In Stock</span>
+                            <span class="tag" id="detailDiscount" style="background:var(--neon-red); color:white;">20% OFF</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="price" id="detailPrice">Rs. 0.00</span>
+                            <span class="old-price" id="detailOldPrice">Rs. 0.00</span>
+                        </div>
 
-                    <div class="price-row">
-                        <span class="price" id="detailPrice">Rs. 0.00</span>
-                        <span class="old-price" id="detailOldPrice">Rs. 0.00</span>
-                    </div>
+                        <div class="selectors">
+                            <div style="color:#aaa; font-size:12px; text-transform:uppercase; margin-bottom:5px;">Color</div>
+                            <div class="color-options" id="colorContainer"></div>
+                        </div>
+                        <div class="selectors">
+                            <div style="color:#aaa; font-size:12px; text-transform:uppercase; margin-bottom:5px;">Size</div>
+                            <div class="size-options" id="sizeContainer"></div>
+                        </div>
 
-                    <!-- Selectors -->
-                    <div class="selectors">
-                        <label class="selector-label">ප්‍රමාණය (Size):</label>
-                        <div class="size-options" id="sizeContainer">
-                            <!-- Sizes injected JS -->
+                        <div class="desc-box">
+                            <div class="desc-text" id="shortDesc"></div>
+                            <div class="desc-text" id="longDesc"></div>
+                            <div style="margin-top:10px; font-size:12px; color:var(--neon-blue);"><i class="fas fa-truck"></i> Delivery: <span id="deliveryDate"></span></div>
+                        </div>
+
+                        <div class="card-actions">
+                            <button class="btn btn-cart" onclick="addToCartFromModal()">Add to Cart</button>
+                            <button class="btn btn-buy" onclick="buyNowFromModal()">Buy Now</button>
+                        </div>
+
+                        <div class="feedback-section">
+                            <h4 style="color:white; margin-bottom:10px;">Feedbacks</h4>
+                            <div id="feedbackList"></div>
+                        </div>
+
+                        <div style="margin-top:20px; border-top:1px dashed #333; padding-top:15px;">
+                            <button class="btn" style="width:100%; background:#222; color:#f00; font-size:10px;" onclick="toggleReport()">Report Item</button>
+                            <div id="reportForm" style="display:none; margin-top:10px;">
+                                <textarea class="form-control" id="reportReason" placeholder="Issue..."></textarea>
+                                <button class="btn btn-buy" style="width:100%; margin-top:5px;" onclick="submitReport()">Submit</button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="selectors">
-                        <label class="selector-label">වර්ණය (Color):</label>
-                        <div class="color-options" id="colorContainer">
-                            <!-- Colors injected JS -->
-                        </div>
-                    </div>
-
-                    <!-- Descriptions -->
-                    <div class="desc-box">
-                        <div class="desc-title">කෙටි විස්තරය:</div>
-                        <p class="desc-text" id="shortDesc">...</p>
-                        <div class="desc-title">සම්පූර්ණ විස්තරය:</div>
-                        <p class="desc-text" id="longDesc">...</p>
-                        <div class="desc-title">Delivery Date: <span id="deliveryDate" style="color:var(--primary); font-weight:600;"></span></div>
-                    </div>
-
-                    <!-- Payment Methods -->
-                    <div style="margin-bottom: 15px;">
-                        <i class="fas fa-university"></i> Bank Payment Available | 
-                        <i class="fas fa-truck-loading"></i> COD Available
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="card-actions">
-                        <button class="btn btn-cart" onclick="addToCartFromModal()">Add to Cart</button>
-                        <button class="btn btn-buy" onclick="buyNowFromModal()">Buy Now</button>
-                    </div>
-
-                    <!-- Feedback Section -->
-                    <div class="feedback-section">
-                        <h4>Customer Feedback</h4>
-                        <div id="feedbackList">
-                            <!-- Feedbacks injected JS -->
-                        </div>
-                    </div>
-
-                    <!-- Report Form -->
-                    <div class="report-container">
-                        <button class="btn" style="background:#e74c3c; color:white; font-size:12px;" onclick="toggleReport()">Report Item</button>
-                        <div class="report-form" id="reportForm" style="margin-top:10px; padding:10px; background:#fff0f0; border-radius:8px;">
-                            <textarea class="form-control" placeholder="Report reason..." id="reportReason"></textarea>
-                            <input type="text" class="form-control" placeholder="Proof Photo URL (optional)" style="margin-top:5px;">
-                            <button class="btn btn-buy" style="margin-top:5px; width:100%;" onclick="submitReport()">Submit Report</button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Cart & Checkout Modal -->
+    <!-- Cart & Checkout Modal (Split View) -->
     <div id="checkoutModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('checkoutModal')">&times;</span>
-            <h2 style="margin-bottom: 20px;">Checkout & Cart</h2>
-            
-            <div class="checkout-grid">
-                <!-- Customer Details -->
-                <div class="customer-details">
-                    <h3 style="margin-bottom: 15px;">Shipping Details</h3>
-                    <div class="form-group">
-                        <label>Name (Required)*</label>
-                        <input type="text" class="form-control" id="cusName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Address (Required)*</label>
-                        <textarea class="form-control" id="cusAddress" rows="2" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Work Number (Required)*</label>
-                        <input type="tel" class="form-control" id="cusPhone" required>
-                    </div>
-                    <div class="form-group">
-                        <label>2nd Number (Optional)</label>
-                        <input type="tel" class="form-control" id="cusPhone2">
-                    </div>
-                    <div class="form-group">
-                        <label>District (Required)*</label>
-                        <select class="form-control" id="cusDistrict" required>
-                            <option value="">Select District</option>
-                            <option>Colombo</option>
-                            <option>Gampaha</option>
-                            <option>Kandy</option>
-                            <option>Kurunegala</option>
-                            <option>Galle</option>
-                            <option>Matara</option>
-                            <option>Jaffna</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Email (Optional)</label>
-                        <input type="email" class="form-control" id="cusEmail">
-                    </div>
-                </div>
-
-                <!-- Order Summary -->
-                <div class="order-summary">
-                    <h3 style="margin-bottom: 15px;">Your Cart</h3>
+            <div class="modal-header">
+                <h2 id="modalTitle">Your Cart</h2>
+                <span class="close-btn" onclick="closeModal('checkoutModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                
+                <!-- STEP 1: CART LIST -->
+                <div id="stepCart" class="checkout-step active">
                     <div class="cart-items-list" id="cartItemsList">
-                        <!-- Cart items go here -->
-                        <div style="text-align:center; color:#999;">Cart is empty</div>
+                        <!-- Items injected here -->
                     </div>
-
-                    <div class="summary-card">
+                    
+                    <div class="cart-summary">
                         <div class="summary-row">
-                            <span>Subtotal:</span>
+                            <span>Subtotal</span>
                             <span id="sumSubtotal">Rs. 0.00</span>
                         </div>
                         <div class="summary-row">
-                            <span>Delivery Charge:</span>
+                            <span>Delivery</span>
                             <span id="sumDelivery">Rs. 0.00</span>
                         </div>
                         <div class="summary-row">
-                            <span>Tax (5%):</span>
+                            <span>Tax (5%)</span>
                             <span id="sumTax">Rs. 0.00</span>
                         </div>
-                        <div class="form-group" style="margin-top:10px;">
-                            <input type="text" id="promoCode" class="form-control" placeholder="Promo Code">
+                        <div class="summary-total">
+                            Rs. <span id="sumTotal">0.00</span>
                         </div>
-                        <div class="summary-row summary-total">
-                            <span>Total:</span>
-                            <span id="sumTotal">Rs. 0.00</span>
+                        <button class="btn btn-buy" style="width:100%; margin-top:20px; padding:15px; font-size:16px;" onclick="goToCheckout()">
+                            Proceed to Checkout <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: CHECKOUT FORM -->
+                <div id="stepCheckout" class="checkout-step">
+                    <div style="text-align:right; margin-bottom:15px;">
+                        <span style="cursor:pointer; color:var(--neon-blue); font-size:14px;" onclick="backToCart()">
+                            <i class="fas fa-arrow-left"></i> Back to Cart
+                        </span>
+                    </div>
+
+                    <div class="form-grid">
+                        <div>
+                            <h3 style="color:white; margin-bottom:20px; font-family:'Orbitron';">Shipping Info</h3>
+                            <div class="form-group">
+                                <label>Name *</label>
+                                <input type="text" class="form-control" id="cusName">
+                            </div>
+                            <div class="form-group">
+                                <label>Address *</label>
+                                <textarea class="form-control" id="cusAddress" rows="2"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone (Work) *</label>
+                                <input type="tel" class="form-control" id="cusPhone">
+                            </div>
+                            <div class="form-group">
+                                <label>Alt Phone (2nd)</label>
+                                <input type="tel" class="form-control" id="cusPhone2">
+                            </div>
+                            <div class="form-group">
+                                <label>District *</label>
+                                <select class="form-control" id="cusDistrict">
+                                    <option value="">Select</option>
+                                    <option>Colombo</option>
+                                    <option>Gampaha</option>
+                                    <option>Kandy</option>
+                                    <option>Galle</option>
+                                    <option>Kurunegala</option>
+                                    <option>Jaffna</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="cusEmail">
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Payment Method</label>
-                            <select class="form-control" id="payMethod">
-                                <option value="COD">Cash on Delivery (COD)</option>
-                                <option value="Bank">Bank Deposit</option>
-                            </select>
-                        </div>
+                        <div>
+                            <h3 style="color:white; margin-bottom:20px; font-family:'Orbitron';">Payment</h3>
+                            <div class="form-group">
+                                <label>Method</label>
+                                <select class="form-control" id="payMethod">
+                                    <option value="COD">Cash on Delivery</option>
+                                    <option value="Bank">Bank Deposit</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Promo Code</label>
+                                <div style="display:flex; gap:5px;">
+                                    <input type="text" class="form-control" placeholder="CODE">
+                                    <button class="btn btn-cart">Apply</button>
+                                </div>
+                            </div>
 
-                        <div class="form-group" style="display:flex; align-items:center; gap:10px;">
-                            <input type="checkbox" id="agreeRules">
-                            <label for="agreeRules" style="font-size:12px; font-weight:400;">I agree to the Terms & Conditions (Agree to rules)</label>
-                        </div>
-
-                        <div class="card-actions" style="margin-top:20px;">
-                            <button class="btn btn-cart" onclick="closeModal('checkoutModal')">Cancel</button>
-                            <button class="btn btn-buy" onclick="confirmOrder()">Confirm Order</button>
+                            <div style="background:#1a0510; padding:15px; border-radius:10px; border:1px solid #330011;">
+                                <div style="display:flex; gap:10px; margin-bottom:15px;">
+                                    <input type="checkbox" id="agreeRules">
+                                    <label for="agreeRules" style="color:#ccc; font-size:12px;">I agree to Terms & Conditions</label>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Total To Pay:</span>
+                                    <span class="summary-total" style="margin-top:0; font-size:20px;">Rs. <span id="finalTotalConfirm">0.00</span></span>
+                                </div>
+                                <button class="btn btn-buy" style="width:100%; margin-top:10px;" onclick="confirmOrder()">
+                                    Confirm Order <i class="fab fa-whatsapp"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast">Message here</div>
+    <div id="toast">Message</div>
 
     <script>
-        // --- Data Setup ---
+        // Data (Same as previous)
         const products = [
-            {
-                id: 1,
-                name: "Men's Casual T-Shirt",
-                price: 1500,
-                oldPrice: 2000,
-                discount: "25%",
-                stock: 15,
-                sold: 120,
-                rate: 4.5,
-                freeDelivery: true,
-                warranty: false,
-                returnable: true,
-                deliveryDays: "2-3 Days",
-                shortDesc: "Soft cotton blend t-shirt perfect for daily wear.",
-                longDesc: "Made from 100% high-quality cotton, this t-shirt ensures maximum comfort and durability. Features a modern fit that suits all body types.",
-                feedbacks: [
-                    {name: "Kamal Perera", msg: "Good quality fabric.", img: "https://picsum.photos/seed/u1/50/50"},
-                    {name: "Nimali", msg: "Fast delivery, thanks!", img: "https://picsum.photos/seed/u2/50/50"}
-                ],
-                variants: [
-                    { color: "Red", hex: "#ff4757", price: 1500, img: "https://picsum.photos/seed/p1r/400/400" },
-                    { color: "Blue", hex: "#3742fa", price: 1500, img: "https://picsum.photos/seed/p1b/400/400" },
-                    { color: "Black", hex: "#2f3542", price: 1600, img: "https://picsum.photos/seed/p1k/400/400" }
-                ],
-                sizes: ["S", "M", "L", "XL"],
-                images: [
-                    "https://picsum.photos/seed/p1r/400/400", 
-                    "https://picsum.photos/seed/p1r2/400/400", 
-                    "https://picsum.photos/seed/p1r3/400/400", 
-                    "https://picsum.photos/seed/p1r4/400/400"
-                ]
-            },
-            {
-                id: 2,
-                name: "Wireless Headphones",
-                price: 4500,
-                oldPrice: 6000,
-                discount: "15%",
-                stock: 5,
-                sold: 45,
-                rate: 4.8,
-                freeDelivery: true,
-                warranty: true,
-                returnable: false,
-                deliveryDays: "1-2 Days",
-                shortDesc: "Noise cancelling wireless headphones.",
-                longDesc: "Experience high-fidelity audio with active noise cancellation. 20-hour battery life with quick charge support.",
-                feedbacks: [
-                    {name: "Sara", msg: "Sound is amazing!", img: "https://picsum.photos/seed/u3/50/50"}
-                ],
-                variants: [
-                    { color: "White", hex: "#ffffff", price: 4500, img: "https://picsum.photos/seed/p2w/400/400" },
-                    { color: "Black", hex: "#000000", price: 4700, img: "https://picsum.photos/seed/p2b/400/400" }
-                ],
-                sizes: ["One Size"],
-                images: [
-                    "https://picsum.photos/seed/p2w/400/400",
-                    "https://picsum.photos/seed/p2w2/400/400",
-                    "https://picsum.photos/seed/p2w3/400/400",
-                    "https://picsum.photos/seed/p2w4/400/400"
-                ]
-            },
-            {
-                id: 3,
-                name: "Sports Shoes",
-                price: 5500,
-                oldPrice: 7000,
-                discount: "20%",
-                stock: 8,
-                sold: 30,
-                rate: 4.2,
-                freeDelivery: false,
-                warranty: true,
-                returnable: true,
-                deliveryDays: "3-4 Days",
-                shortDesc: "Running shoes with air sole.",
-                longDesc: "Lightweight and durable, designed for professional athletes and casual runners alike.",
-                feedbacks: [],
-                variants: [
-                    { color: "Grey", hex: "#a4b0be", price: 5500, img: "https://picsum.photos/seed/p3g/400/400" },
-                    { color: "Red", hex: "#ff6b81", price: 5500, img: "https://picsum.photos/seed/p3r/400/400" }
-                ],
-                sizes: ["UK 6", "UK 7", "UK 8", "UK 9", "UK 10"],
-                images: [
-                    "https://picsum.photos/seed/p3g/400/400",
-                    "https://picsum.photos/seed/p3g2/400/400",
-                    "https://picsum.photos/seed/p3g3/400/400",
-                    "https://picsum.photos/seed/p3g4/400/400"
-                ]
-            },
-            {
-                id: 4,
-                name: "Smart Watch",
-                price: 8000,
-                oldPrice: 12000,
-                discount: "33%",
-                stock: 12,
-                sold: 85,
-                rate: 4.6,
-                freeDelivery: true,
-                warranty: true,
-                returnable: true,
-                deliveryDays: "2 Days",
-                shortDesc: "Fitness tracker with heart rate monitor.",
-                longDesc: "Track your steps, sleep, and heart rate with precision. Water-resistant design.",
-                feedbacks: [
-                    {name: "Dasun", msg: "Battery life is super.", img: "https://picsum.photos/seed/u4/50/50"}
-                ],
-                variants: [
-                    { color: "Silver", hex: "#ced6e0", price: 8000, img: "https://picsum.photos/seed/p4s/400/400" },
-                    { color: "Gold", hex: "#ffd32a", price: 8500, img: "https://picsum.photos/seed/p4g/400/400" }
-                ],
-                sizes: ["One Size"],
-                images: [
-                    "https://picsum.photos/seed/p4s/400/400",
-                    "https://picsum.photos/seed/p4s2/400/400",
-                    "https://picsum.photos/seed/p4s3/400/400",
-                    "https://picsum.photos/seed/p4s4/400/400"
-                ]
-            },
-            {
-                id: 5,
-                name: "Leather Wallet",
-                price: 1200,
-                oldPrice: 1500,
-                discount: "20%",
-                stock: 50,
-                sold: 200,
-                rate: 4.0,
-                freeDelivery: false,
-                warranty: false,
-                returnable: false,
-                deliveryDays: "4 Days",
-                shortDesc: "Genuine leather bi-fold wallet.",
-                longDesc: "Classic design with multiple card slots and coin pocket. Premium texture.",
-                feedbacks: [],
-                variants: [
-                    { color: "Brown", hex: "#8B4513", price: 1200, img: "https://picsum.photos/seed/p5b/400/400" },
-                    { color: "Black", hex: "#000000", price: 1200, img: "https://picsum.photos/seed/p5k/400/400" }
-                ],
-                sizes: ["One Size"],
-                images: [
-                    "https://picsum.photos/seed/p5b/400/400",
-                    "https://picsum.photos/seed/p5b2/400/400",
-                    "https://picsum.photos/seed/p5b3/400/400",
-                    "https://picsum.photos/seed/p5b4/400/400"
-                ]
-            },
-            {
-                id: 6,
-                name: "Sunglasses",
-                price: 2500,
-                oldPrice: 3000,
-                discount: "16%",
-                stock: 20,
-                sold: 60,
-                rate: 4.3,
-                freeDelivery: true,
-                warranty: false,
-                returnable: false,
-                deliveryDays: "2 Days",
-                shortDesc: "UV protection polarized glasses.",
-                longDesc: "Stylish aviator design providing 100% UV protection.",
-                feedbacks: [],
-                variants: [
-                    { color: "Green", hex: "#2ed573", price: 2500, img: "https://picsum.photos/seed/p6g/400/400" },
-                    { color: "Black", hex: "#2f3542", price: 2500, img: "https://picsum.photos/seed/p6k/400/400" }
-                ],
-                sizes: ["One Size"],
-                images: [
-                    "https://picsum.photos/seed/p6g/400/400",
-                    "https://picsum.photos/seed/p6g2/400/400",
-                    "https://picsum.photos/seed/p6g3/400/400",
-                    "https://picsum.photos/seed/p6g4/400/400"
-                ]
-            },
-            {
-                id: 7,
-                name: "Backpack",
-                price: 3500,
-                oldPrice: 4500,
-                discount: "22%",
-                stock: 10,
-                sold: 40,
-                rate: 4.7,
-                freeDelivery: true,
-                warranty: true,
-                returnable: true,
-                deliveryDays: "3 Days",
-                shortDesc: "Water resistant travel backpack.",
-                longDesc: "Large capacity with laptop compartment and anti-theft pockets.",
-                feedbacks: [],
-                variants: [
-                    { color: "Navy", hex: "#000080", price: 3500, img: "https://picsum.photos/seed/p7n/400/400" },
-                    { color: "Grey", hex: "#747d8c", price: 3500, img: "https://picsum.photos/seed/p7g/400/400" }
-                ],
-                sizes: ["One Size"],
-                images: [
-                    "https://picsum.photos/seed/p7n/400/400",
-                    "https://picsum.photos/seed/p7n2/400/400",
-                    "https://picsum.photos/seed/p7n3/400/400",
-                    "https://picsum.photos/seed/p7n4/400/400"
-                ]
-            },
-            {
-                id: 8,
-                name: "Denim Jacket",
-                price: 4000,
-                oldPrice: 5000,
-                discount: "20%",
-                stock: 7,
-                sold: 25,
-                rate: 4.4,
-                freeDelivery: false,
-                warranty: false,
-                returnable: true,
-                deliveryDays: "5 Days",
-                shortDesc: "Vintage style denim jacket.",
-                longDesc: "Classic blue denim jacket suitable for all seasons.",
-                feedbacks: [],
-                variants: [
-                    { color: "Blue", hex: "#1e90ff", price: 4000, img: "https://picsum.photos/seed/p8b/400/400" }
-                ],
-                sizes: ["M", "L", "XL"],
-                images: [
-                    "https://picsum.photos/seed/p8b/400/400",
-                    "https://picsum.photos/seed/p8b2/400/400",
-                    "https://picsum.photos/seed/p8b3/400/400",
-                    "https://picsum.photos/seed/p8b4/400/400"
-                ]
-            },
-            {
-                id: 9,
-                name: "Wall Clock",
-                price: 1800,
-                oldPrice: 2500,
-                discount: "28%",
-                stock: 30,
-                sold: 150,
-                rate: 4.1,
-                freeDelivery: false,
-                warranty: true,
-                returnable: false,
-                deliveryDays: "4 Days",
-                shortDesc: "Silent quartz movement clock.",
-                longDesc: "Modern minimalist design for living room or office.",
-                feedbacks: [],
-                variants: [
-                    { color: "White", hex: "#ffffff", price: 1800, img: "https://picsum.photos/seed/p9w/400/400" },
-                    { color: "Wood", hex: "#8B4513", price: 2000, img: "https://picsum.photos/seed/p9wo/400/400" }
-                ],
-                sizes: ["One Size"],
-                images: [
-                    "https://picsum.photos/seed/p9w/400/400",
-                    "https://picsum.photos/seed/p9w2/400/400",
-                    "https://picsum.photos/seed/p9w3/400/400",
-                    "https://picsum.photos/seed/p9w4/400/400"
-                ]
-            },
-            {
-                id: 10,
-                name: "Gaming Mouse",
-                price: 2200,
-                oldPrice: 2800,
-                discount: "21%",
-                stock: 18,
-                sold: 75,
-                rate: 4.6,
-                freeDelivery: true,
-                warranty: true,
-                returnable: false,
-                deliveryDays: "2 Days",
-                shortDesc: "RGB wired gaming mouse.",
-                longDesc: "High precision sensor with customizable RGB lighting and programmable buttons.",
-                feedbacks: [],
-                variants: [
-                    { color: "Black", hex: "#000000", price: 2200, img: "https://picsum.photos/seed/p10b/400/400" },
-                    { color: "Red", hex: "#ff0000", price: 2200, img: "https://picsum.photos/seed/p10r/400/400" }
-                ],
-                sizes: ["One Size"],
-                images: [
-                    "https://picsum.photos/seed/p10b/400/400",
-                    "https://picsum.photos/seed/p10b2/400/400",
-                    "https://picsum.photos/seed/p10b3/400/400",
-                    "https://picsum.photos/seed/p10b4/400/400"
-                ]
-            }
+            { id: 1, name: "Neon Cyber T-Shirt", price: 1500, oldPrice: 2000, discount: "25%", stock: 15, sold: 120, rate: 4.5, freeDelivery: true, warranty: false, returnable: true, deliveryDays: "2-3 Days", shortDesc: "Soft cotton blend t-shirt perfect for daily wear.", longDesc: "Made from 100% high-quality cotton, this t-shirt ensures maximum comfort and durability. Features a modern fit that suits all body types.", feedbacks: [{name: "Kamal", msg: "Good quality fabric.", img: "https://picsum.photos/seed/u1/50/50"}], variants: [{ color: "Red", hex: "#ff0055", price: 1500, img: "https://picsum.photos/seed/p1r/400/400" }, { color: "Blue", hex: "#00e5ff", price: 1500, img: "https://picsum.photos/seed/p1b/400/400" }], sizes: ["S", "M", "L", "XL"], images: ["https://picsum.photos/seed/p1r/400/400", "https://picsum.photos/seed/p1r2/400/400", "https://picsum.photos/seed/p1r3/400/400", "https://picsum.photos/seed/p1r4/400/400"] },
+            { id: 2, name: "Wireless Headphones", price: 4500, oldPrice: 6000, discount: "15%", stock: 5, sold: 45, rate: 4.8, freeDelivery: true, warranty: true, returnable: false, deliveryDays: "1-2 Days", shortDesc: "Noise cancelling wireless headphones.", longDesc: "Experience high-fidelity audio with active noise cancellation. 20-hour battery life with quick charge support.", feedbacks: [{name: "Sara", msg: "Sound is amazing!", img: "https://picsum.photos/seed/u3/50/50"}], variants: [{ color: "White", hex: "#ffffff", price: 4500, img: "https://picsum.photos/seed/p2w/400/400" }, { color: "Black", hex: "#111", price: 4700, img: "https://picsum.photos/seed/p2b/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p2w/400/400", "https://picsum.photos/seed/p2w2/400/400", "https://picsum.photos/seed/p2w3/400/400", "https://picsum.photos/seed/p2w4/400/400"] },
+            { id: 3, name: "Sports Shoes", price: 5500, oldPrice: 7000, discount: "20%", stock: 8, sold: 30, rate: 4.2, freeDelivery: false, warranty: true, returnable: true, deliveryDays: "3-4 Days", shortDesc: "Running shoes with air sole.", longDesc: "Lightweight and durable, designed for professional athletes.", feedbacks: [], variants: [{ color: "Grey", hex: "#7f8c8d", price: 5500, img: "https://picsum.photos/seed/p3g/400/400" }, { color: "Red", hex: "#c0392b", price: 5500, img: "https://picsum.photos/seed/p3r/400/400" }], sizes: ["UK 6", "UK 7", "UK 8"], images: ["https://picsum.photos/seed/p3g/400/400", "https://picsum.photos/seed/p3g2/400/400", "https://picsum.photos/seed/p3g3/400/400", "https://picsum.photos/seed/p3g4/400/400"] },
+            { id: 4, name: "Smart Watch", price: 8000, oldPrice: 12000, discount: "33%", stock: 12, sold: 85, rate: 4.6, freeDelivery: true, warranty: true, returnable: true, deliveryDays: "2 Days", shortDesc: "Fitness tracker with heart rate.", longDesc: "Track your steps, sleep, and heart rate with precision.", feedbacks: [{name: "Dasun", msg: "Battery life is super.", img: "https://picsum.photos/seed/u4/50/50"}], variants: [{ color: "Silver", hex: "#bdc3c7", price: 8000, img: "https://picsum.photos/seed/p4s/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p4s/400/400", "https://picsum.photos/seed/p4s2/400/400", "https://picsum.photos/seed/p4s3/400/400", "https://picsum.photos/seed/p4s4/400/400"] },
+            { id: 5, name: "Leather Wallet", price: 1200, oldPrice: 1500, discount: "20%", stock: 50, sold: 200, rate: 4.0, freeDelivery: false, warranty: false, returnable: false, deliveryDays: "4 Days", shortDesc: "Genuine leather bi-fold wallet.", longDesc: "Classic design with multiple card slots.", feedbacks: [], variants: [{ color: "Brown", hex: "#8B4513", price: 1200, img: "https://picsum.photos/seed/p5b/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p5b/400/400", "https://picsum.photos/seed/p5b2/400/400", "https://picsum.photos/seed/p5b3/400/400", "https://picsum.photos/seed/p5b4/400/400"] },
+            { id: 6, name: "Sunglasses", price: 2500, oldPrice: 3000, discount: "16%", stock: 20, sold: 60, rate: 4.3, freeDelivery: true, warranty: false, returnable: false, deliveryDays: "2 Days", shortDesc: "UV protection polarized glasses.", longDesc: "Stylish aviator design providing 100% UV protection.", feedbacks: [], variants: [{ color: "Green", hex: "#2ecc71", price: 2500, img: "https://picsum.photos/seed/p6g/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p6g/400/400", "https://picsum.photos/seed/p6g2/400/400", "https://picsum.photos/seed/p6g3/400/400", "https://picsum.photos/seed/p6g4/400/400"] },
+            { id: 7, name: "Gaming Backpack", price: 3500, oldPrice: 4500, discount: "22%", stock: 10, sold: 40, rate: 4.7, freeDelivery: true, warranty: true, returnable: true, deliveryDays: "3 Days", shortDesc: "Water resistant travel backpack.", longDesc: "Large capacity with laptop compartment.", feedbacks: [], variants: [{ color: "Navy", hex: "#34495e", price: 3500, img: "https://picsum.photos/seed/p7n/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p7n/400/400", "https://picsum.photos/seed/p7n2/400/400", "https://picsum.photos/seed/p7n3/400/400", "https://picsum.photos/seed/p7n4/400/400"] },
+            { id: 8, name: "Denim Jacket", price: 4000, oldPrice: 5000, discount: "20%", stock: 7, sold: 25, rate: 4.4, freeDelivery: false, warranty: false, returnable: true, deliveryDays: "5 Days", shortDesc: "Vintage style denim jacket.", longDesc: "Classic blue denim jacket suitable for all seasons.", feedbacks: [], variants: [{ color: "Blue", hex: "#2980b9", price: 4000, img: "https://picsum.photos/seed/p8b/400/400" }], sizes: ["M", "L", "XL"], images: ["https://picsum.photos/seed/p8b/400/400", "https://picsum.photos/seed/p8b2/400/400", "https://picsum.photos/seed/p8b3/400/400", "https://picsum.photos/seed/p8b4/400/400"] },
+            { id: 9, name: "Wall Clock", price: 1800, oldPrice: 2500, discount: "28%", stock: 30, sold: 150, rate: 4.1, freeDelivery: false, warranty: true, returnable: false, deliveryDays: "4 Days", shortDesc: "Silent quartz movement clock.", longDesc: "Modern minimalist design for living room.", feedbacks: [], variants: [{ color: "White", hex: "#ffffff", price: 1800, img: "https://picsum.photos/seed/p9w/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p9w/400/400", "https://picsum.photos/seed/p9w2/400/400", "https://picsum.photos/seed/p9w3/400/400", "https://picsum.photos/seed/p9w4/400/400"] },
+            { id: 10, name: "Gaming Mouse", price: 2200, oldPrice: 2800, discount: "21%", stock: 18, sold: 75, rate: 4.6, freeDelivery: true, warranty: true, returnable: false, deliveryDays: "2 Days", shortDesc: "RGB wired gaming mouse.", longDesc: "High precision sensor with customizable RGB.", feedbacks: [], variants: [{ color: "Black", hex: "#000", price: 2200, img: "https://picsum.photos/seed/p10b/400/400" }], sizes: ["One Size"], images: ["https://picsum.photos/seed/p10b/400/400", "https://picsum.photos/seed/p10b2/400/400", "https://picsum.photos/seed/p10b3/400/400", "https://picsum.photos/seed/p10b4/400/400"] }
         ];
 
-        // --- State ---
         let cart = [];
         let currentViewProduct = null;
-        let currentVariantIndex = 0; // Default to first variant
+        let currentVariantIndex = 0;
         let currentSize = "";
 
-        // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
         });
 
-        // --- Render Functions ---
         function renderProducts() {
             const container = document.getElementById('productContainer');
             container.innerHTML = '';
-
             products.forEach(p => {
-                const freeDelTag = p.freeDelivery ? '<div class="free-delivery">Free Delivery</div>' : '';
-                const stockClass = p.stock < 10 ? 'stock-low' : 'stock-ok';
-                
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                card.onclick = (e) => {
-                    // Prevent opening modal if clicking buttons directly (optional, but handled by separate buttons)
-                    if(!e.target.closest('button')) {
-                        openProductModal(p.id);
-                    }
-                };
-
+                card.onclick = (e) => { if(!e.target.closest('button')) openProductModal(p.id); };
                 card.innerHTML = `
-                    ${freeDelTag}
-                    <div class="card-img-container">
-                        <img src="${p.variants[0].img}" alt="${p.name}">
-                    </div>
+                    <div class="card-img-container"><img src="${p.variants[0].img}" alt="${p.name}"></div>
                     <div class="card-details">
                         <div class="product-name">${p.name}</div>
-                        <div class="product-meta">
-                            <span><i class="fas fa-eye"></i> ${p.sold}</span>
-                            <span class="rating">⭐ ${p.rate}</span>
-                        </div>
-                        <div class="stock-info ${stockClass}">
-                            ${p.stock > 0 ? `Stock: ${p.stock}` : 'Out of Stock'}
-                        </div>
+                        <div class="stock-info"><div class="stock-dot ${p.stock < 10 ? 'low' : ''}"></div> Stock: ${p.stock} | Sold: ${p.sold}</div>
                         <div class="price-row">
                             <span class="price">Rs. ${p.variants[0].price}</span>
                             <span class="old-price">Rs. ${p.oldPrice}</span>
@@ -964,233 +561,140 @@
             });
         }
 
-        // --- Product Modal Logic ---
+        // --- Product Modal ---
         function openProductModal(id) {
             currentViewProduct = products.find(p => p.id === id);
             currentVariantIndex = 0;
-            currentSize = currentViewProduct.sizes[0]; // Default size
-
+            currentSize = currentViewProduct.sizes[0];
             updateModalView();
             
-            // Generate Feedbacks
             const fbList = document.getElementById('feedbackList');
-            fbList.innerHTML = '';
-            if(currentViewProduct.feedbacks.length > 0) {
-                currentViewProduct.feedbacks.forEach(fb => {
-                    fbList.innerHTML += `
-                        <div class="feedback-item">
-                            <img src="${fb.img}" class="feedback-img" alt="User">
-                            <div>
-                                <strong>${fb.name}</strong><br>
-                                <span style="font-size:12px; color:#555;">${fb.msg}</span>
-                            </div>
-                        </div>
-                    `;
-                });
-            } else {
-                fbList.innerHTML = '<p style="font-size:12px; color:#999;">No feedbacks yet.</p>';
-            }
-
+            fbList.innerHTML = currentViewProduct.feedbacks.length > 0 
+                ? currentViewProduct.feedbacks.map(fb => `<div class="feedback-item"><img src="${fb.img}" style="width:30px;height:30px;border-radius:50%;"> <strong>${fb.name}</strong>: ${fb.msg}</div>`).join('')
+                : '<p style="font-size:12px;color:#666;">No feedbacks yet.</p>';
+            
             document.getElementById('productModal').style.display = 'block';
         }
 
         function updateModalView() {
             const p = currentViewProduct;
             const v = p.variants[currentVariantIndex];
-
-            // Text Info
             document.getElementById('detailName').innerText = p.name;
             document.getElementById('detailPrice').innerText = `Rs. ${v.price}`;
             document.getElementById('detailOldPrice').innerText = `Rs. ${p.oldPrice}`;
-            document.getElementById('detailRate').innerText = `⭐ ${p.rate} (${p.sold} sold)`;
-            document.getElementById('detailStock').innerText = p.stock > 0 ? `Stock: ${p.stock}` : 'Out of Stock';
+            document.getElementById('detailRate').innerText = `⭐ ${p.rate}`;
             document.getElementById('detailDiscount').innerText = `${p.discount} OFF`;
             document.getElementById('shortDesc').innerText = p.shortDesc;
             document.getElementById('longDesc').innerText = p.longDesc;
             document.getElementById('deliveryDate').innerText = p.deliveryDays;
-            document.getElementById('detailWarranty').innerText = p.warranty ? "Warranty Available" : "No Warranty";
-            document.getElementById('detailReturn').innerText = p.returnable ? "Return Available" : "No Returns";
-            document.getElementById('detailWarranty').className = p.warranty ? 'tag warranty' : 'tag';
-            document.getElementById('detailReturn').className = p.returnable ? 'tag return' : 'tag';
 
-            // Images
             document.getElementById('detailMainImg').src = v.img;
-            const thumbsContainer = document.getElementById('detailThumbs');
-            thumbsContainer.innerHTML = '';
-            // For this demo, we generate thumbs from the 4 defined images or variants
-            // Let's show the variant specific images + others
-            p.images.forEach((img, idx) => {
-                const t = document.createElement('img');
-                t.src = idx === 0 ? v.img : img; // First one matches variant color
-                t.className = 'thumb';
-                if(idx === 0) t.classList.add('active');
-                t.onclick = () => {
-                    document.getElementById('detailMainImg').src = t.src;
-                    document.querySelectorAll('.thumb').forEach(el => el.classList.remove('active'));
-                    t.classList.add('active');
-                };
-                thumbsContainer.appendChild(t);
-            });
+            const thumbs = document.getElementById('detailThumbs');
+            thumbs.innerHTML = p.images.map((img, i) => 
+                `<img src="${i===0?v.img:img}" class="thumb ${i===0?'active':''}" onclick="document.getElementById('detailMainImg').src=this.src; document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));this.classList.add('active');">`
+            ).join('');
 
-            // Render Sizes
             const sizeCont = document.getElementById('sizeContainer');
-            sizeCont.innerHTML = '';
-            p.sizes.forEach(s => {
-                const sp = document.createElement('div');
-                sp.className = `size-opt ${s === currentSize ? 'selected' : ''}`;
-                sp.innerText = s;
-                sp.onclick = () => {
-                    currentSize = s;
-                    renderSizes(); // Re-render to update class
-                };
-                sizeCont.appendChild(sp);
-            });
+            sizeCont.innerHTML = p.sizes.map(s => 
+                `<div class="size-opt ${s===currentSize?'selected':''}" onclick="currentSize='${s}'; updateModalView();">${s}</div>`
+            ).join('');
 
-            // Render Colors
             const colorCont = document.getElementById('colorContainer');
-            colorCont.innerHTML = '';
-            p.variants.forEach((v, idx) => {
-                const cv = document.createElement('div');
-                cv.className = `color-opt ${idx === currentVariantIndex ? 'selected' : ''}`;
-                cv.style.backgroundColor = v.hex;
-                cv.title = v.color;
-                cv.onclick = () => {
-                    currentVariantIndex = idx;
-                    updateModalView(); // Full refresh to change price/img
-                };
-                colorCont.appendChild(cv);
-            });
-        }
-
-        function renderSizes() {
-            // Helper to just refresh visual class
-            const opts = document.querySelectorAll('.size-opt');
-            opts.forEach(opt => {
-                if(opt.innerText === currentSize) opt.classList.add('selected');
-                else opt.classList.remove('selected');
-            });
+            colorCont.innerHTML = p.variants.map((cv, i) => 
+                `<div class="color-opt ${i===currentVariantIndex?'selected':''}" style="background:${cv.hex};" onclick="currentVariantIndex=${i}; updateModalView();"></div>`
+            ).join('');
         }
 
         // --- Cart Logic ---
         function addToCart(id) {
-            const p = products.find(p => p.id === id);
-            // Add default variant for simple add
-            addToCartProcess(p, 0, p.sizes[0]);
-        }
-
-        function addToCartFromModal() {
-            addToCartProcess(currentViewProduct, currentVariantIndex, currentSize);
-        }
-
-        function addToCartProcess(p, vIndex, size) {
-            const variant = p.variants[vIndex];
-            const item = {
-                name: p.name,
-                variant: variant.color,
-                size: size,
-                price: variant.price,
-                img: variant.img
-            };
-            cart.push(item);
+            const p = products.find(x => x.id === id);
+            cart.push({ name: p.name, variant: p.variants[0].color, size: p.sizes[0], price: p.variants[0].price, img: p.variants[0].img });
             updateCartCount();
             showToast("Added to Cart!");
         }
 
-        function buyNow(id) {
-            // Logic: Buy Now -> Clear Cart (optional) or Add to Cart -> Open Cart Modal
-            // User said: "buy now click කරොත් කස්ටර්මට මුලින්ම කාර්ට් එක පෙන්වන්න"
-            // We will add the item to cart and open checkout
-            cart = []; // Buy Now usually implies a fresh purchase flow or adding to existing. Let's add to existing.
-            const p = products.find(p => p.id === id);
-            addToCartProcess(p, 0, p.sizes[0]);
-            openCart();
+        function addToCartFromModal() {
+            cart.push({ name: currentViewProduct.name, variant: currentViewProduct.variants[currentVariantIndex].color, size: currentSize, price: currentViewProduct.variants[currentVariantIndex].price, img: currentViewProduct.variants[currentVariantIndex].img });
+            updateCartCount();
+            showToast("Added to Cart!");
         }
 
-        function buyNowFromModal() {
-            cart = []; 
-            addToCartProcess(currentViewProduct, currentVariantIndex, currentSize);
-            openCart();
-        }
+        function buyNow(id) { cart = []; addToCart(id); openCart(); }
+        function buyNowFromModal() { cart = []; addToCartFromModal(); openCart(); }
 
-        function updateCartCount() {
-            document.getElementById('cartCount').innerText = cart.length;
-        }
+        function updateCartCount() { document.getElementById('cartCount').innerText = cart.length; }
 
+        // --- Checkout Modal Steps ---
         function openCart() {
-            renderCartList();
             document.getElementById('checkoutModal').style.display = 'block';
+            backToCart(); // Reset to step 1
+            renderCartList();
         }
 
         function renderCartList() {
             const list = document.getElementById('cartItemsList');
             list.innerHTML = '';
-            let subtotal = 0;
-
+            let total = 0;
             if(cart.length === 0) {
-                list.innerHTML = '<div style="text-align:center; padding:20px; color:#888;">Your cart is empty</div>';
+                list.innerHTML = '<div style="text-align:center; padding:20px; color:#666;">Your cart is empty</div>';
             } else {
-                cart.forEach((item, index) => {
-                    subtotal += parseInt(item.price);
+                cart.forEach((item, i) => {
+                    total += parseInt(item.price);
                     list.innerHTML += `
                         <div class="cart-item">
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                <img src="${item.img}" width="40" height="40" style="border-radius:4px;">
+                            <div class="cart-item-info">
+                                <img src="${item.img}" class="cart-item-img">
                                 <div>
-                                    <div style="font-weight:600;">${item.name}</div>
-                                    <div style="font-size:12px; color:#666;">${item.variant}, ${item.size}</div>
+                                    <div class="cart-item-name">${item.name}</div>
+                                    <div class="cart-item-variant">${item.variant} | ${item.size}</div>
                                 </div>
                             </div>
-                            <div style="font-weight:600;">Rs. ${item.price}</div>
+                            <div style="font-weight:bold; color:white;">Rs. ${item.price}</div>
                         </div>
                     `;
                 });
             }
 
-            // Calculations
-            const delivery = subtotal > 5000 ? 0 : 500; // Free delivery over 5000
-            const tax = Math.round(subtotal * 0.05);
-            const total = subtotal + delivery + tax;
+            const delivery = total > 5000 ? 0 : 500;
+            const tax = Math.round(total * 0.05);
+            const final = total + delivery + tax;
 
-            document.getElementById('sumSubtotal').innerText = `Rs. ${subtotal}`;
+            document.getElementById('sumSubtotal').innerText = `Rs. ${total}`;
             document.getElementById('sumDelivery').innerText = delivery === 0 ? "Free" : `Rs. ${delivery}`;
             document.getElementById('sumTax').innerText = `Rs. ${tax}`;
-            document.getElementById('sumTotal').innerText = `Rs. ${total}`;
+            document.getElementById('sumTotal').innerText = final;
+            document.getElementById('finalTotalConfirm').innerText = final;
         }
 
-        // --- Checkout & WhatsApp Logic ---
+        function goToCheckout() {
+            if(cart.length === 0) { showToast("Cart is empty!"); return; }
+            document.getElementById('modalTitle').innerText = "Checkout";
+            document.getElementById('stepCart').classList.remove('active');
+            document.getElementById('stepCheckout').classList.add('active');
+        }
+
+        function backToCart() {
+            document.getElementById('modalTitle').innerText = "Your Cart";
+            document.getElementById('stepCheckout').classList.remove('active');
+            document.getElementById('stepCart').classList.add('active');
+        }
+
+        // --- WhatsApp ---
         function confirmOrder() {
-            // Validation
             const name = document.getElementById('cusName').value;
             const address = document.getElementById('cusAddress').value;
             const phone = document.getElementById('cusPhone').value;
             const district = document.getElementById('cusDistrict').value;
             const agree = document.getElementById('agreeRules').checked;
 
-            if (!name || !address || !phone || !district) {
-                showToast("Please fill required fields!");
-                return;
-            }
-            if (!agree) {
-                showToast("Please agree to the rules.");
-                return;
-            }
-            if (cart.length === 0) {
-                showToast("Cart is empty!");
-                return;
-            }
+            if(!name || !address || !phone || !district) { showToast("Fill Required Fields!"); return; }
+            if(!agree) { showToast("Agree to Terms!"); return; }
 
-            // Construct WhatsApp Message
             let msg = `*NEW ORDER - Laaba Kade*\n\n`;
-            msg += `*Customer Details:*\n`;
-            msg += `Name: ${name}\n`;
-            msg += `Address: ${address}, ${district}\n`;
-            msg += `Phone: ${phone}\n`;
-            const phone2 = document.getElementById('cusPhone2').value;
-            if(phone2) msg += `Alt Phone: ${phone2}\n`;
-            const email = document.getElementById('cusEmail').value;
-            if(email) msg += `Email: ${email}\n`;
-            
-            msg += `\n*Order Items:*\n`;
+            msg += `*Customer:* ${name}\n`;
+            msg += `*Phone:* ${phone} (Alt: ${document.getElementById('cusPhone2').value})\n`;
+            msg += `*Address:* ${address}, ${district}\n\n`;
+            msg += `*Items:*\n`;
             let total = 0;
             cart.forEach((item, i) => {
                 msg += `${i+1}. ${item.name} (${item.variant}, ${item.size}) - Rs. ${item.price}\n`;
@@ -1199,58 +703,24 @@
 
             const delivery = total > 5000 ? 0 : 500;
             const tax = Math.round(total * 0.05);
-            const finalTotal = total + delivery + tax;
-            const payMethod = document.getElementById('payMethod').value;
+            const final = total + delivery + tax;
 
-            msg += `\n*Payment Method:* ${payMethod}\n`;
-            msg += `Subtotal: Rs. ${total}\n`;
-            msg += `Delivery: Rs. ${delivery}\n`;
-            msg += `Tax: Rs. ${tax}\n`;
-            msg += `*TOTAL TO PAY: Rs. ${finalTotal}*\n`;
+            msg += `\n*Payment:* ${document.getElementById('payMethod').value}\n`;
+            msg += `*Total: Rs. ${final}*\n`;
 
-            const phoneNumber = "94775048455"; // 0775048455 in international format without +
-
-            // Encode and Redirect
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
+            window.open(`https://wa.me/94775048455?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // --- Utility ---
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
+        // --- Utils ---
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        window.onclick = (e) => { if(e.target.classList.contains('modal')) e.target.style.display='none'; };
+        function showToast(msg) {
+            const x = document.getElementById("toast"); x.innerText = msg; x.className = "show";
+            setTimeout(() => x.className = x.className.replace("show", ""), 3000);
         }
+        function toggleReport() { const f = document.getElementById('reportForm'); f.style.display = f.style.display === 'block' ? 'none' : 'block'; }
+        function submitReport() { document.getElementById('reportForm').style.display = 'none'; showToast("Report Sent"); }
 
-        function showToast(message) {
-            const x = document.getElementById("toast");
-            x.innerText = message;
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-        }
-
-        function toggleReport() {
-            const form = document.getElementById('reportForm');
-            if(form.style.display === 'block') form.style.display = 'none';
-            else form.style.display = 'block';
-        }
-
-        function submitReport() {
-            const reason = document.getElementById('reportReason').value;
-            if(!reason) {
-                showToast("Please enter a reason.");
-                return;
-            }
-            // Simulate sending
-            document.getElementById('reportReason').value = '';
-            document.getElementById('reportForm').style.display = 'none';
-            showToast("Report Submitted Successfully.");
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = "none";
-            }
-        }
     </script>
 </body>
 </html>
