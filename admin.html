@@ -2,53 +2,497 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ru Online Store Dropshipping</title>
     <style>
-        body { margin: 0; font-family: sans-serif; display: flex; background: #121212; color: #fff; }
-        .sidebar { width: 250px; background: #000; height: 100vh; padding: 20px; border-right: 1px solid #333; }
-        .sidebar a { display: block; padding: 15px; color: #bbb; text-decoration: none; border-bottom: 1px solid #333; }
-        .sidebar a:hover { background: #333; color: #fff; }
-        .content { flex: 1; padding: 20px; }
-        .card { background: #1e1e1e; padding: 20px; margin-bottom: 20px; border-radius: 10px; }
-        h1 { color: #bb86fc; }
+        :root {
+            --primary-color: #ff4d4d;
+            --secondary-color: #ff9f43;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-color: #ffffff;
+            --input-bg: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(45deg, #1a0b2e, #4a192c, #0f2027);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Canvas */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Container */
+        .container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: var(--input-bg);
+            color: #fff;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 8px rgba(255, 159, 67, 0.3);
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+        }
+
+        .toggle-text {
+            text-align: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: underline;
+            color: var(--secondary-color);
+        }
+
+        /* Dashboard Specifics */
+        #dashboard-view {
+            display: none;
+            text-align: center;
+        }
+
+        .dashboard-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--secondary-color);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Back Home Button */
+        .back-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .back-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 17px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2 style="color:#bb86fc; text-align:center;">Admin Panel</h2>
-        <a href="#">Dashboard</a>
-        <a href="#">Orders (WhatsApp)</a>
-        <a href="#">Manage Products</a>
-        <a href="#">Resellers (14)</a>
-        <a href="#">Customers</a>
-        <a href="index.html">View Site</a>
-    </div>
 
-    <div class="content">
-        <h1>Dashboard Overview</h1>
-        <div style="display: flex; gap: 20px;">
-            <div class="card" style="flex:1; border-left: 5px solid cyan;">
-                <h3>Total Orders</h3>
-                <h1>150</h1>
+    <canvas id="bgCanvas"></canvas>
+    <a href="index.html" class="back-home">Back to Home</a>
+
+    <div class="container">
+        <!-- Login View -->
+        <div id="login-view">
+            <div class="header">
+                <h2>Ru Online Store</h2>
+                <p>Dropshipping Portal</p>
             </div>
-            <div class="card" style="flex:1; border-left: 5px solid lime;">
-                <h3>Total Revenue</h3>
-                <h1>LKR 450,000</h1>
-            </div>
-            <div class="card" style="flex:1; border-left: 5px solid orange;">
-                <h3>Resellers</h3>
-                <h1>16</h1>
-            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUsername" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p class="toggle-text" onclick="switchView('register')">Don't have an account? Register</p>
         </div>
 
-        <div class="card">
-            <h3>Recent Activity</h3>
-            <p>New Order from Sudeera (Manual Entry)</p>
-            <p>New Reseller Request: Kasun</p>
-            <p>Stock Update: Oil Sprayer (Low Stock)</p>
+        <!-- Register View -->
+        <div id="register-view" style="display: none;">
+            <div class="header">
+                <h2>Join Us</h2>
+                <p>Create a Reseller Account</p>
+            </div>
+            <form id="registerForm">
+                <div class="form-group" style="display: flex; gap: 10px;">
+                    <input type="text" id="regFirstName" placeholder="First Name" required>
+                    <input type="text" id="regLastName" placeholder="Last Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="regEmail" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="regWhatsapp" placeholder="WhatsApp Number (e.g. 07xxxxxxx)" required>
+                </div>
+                <div class="form-group" style="display: flex; gap: 10px;">
+                    <input type="number" id="regAge" placeholder="Age" min="18" required>
+                    <input type="text" id="regDistrict" placeholder="District" required>
+                </div>
+                <div class="form-group">
+                    <label>Payment Option</label>
+                    <select id="regPayment" required>
+                        <option value="" disabled selected>Select Option</option>
+                        <option value="Bank Deposit">Bank Deposit</option>
+                        <option value="Reload">Reload</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="regUsername" placeholder="Create Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="regPassword" placeholder="Create Password" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreeRules" required>
+                    <label for="agreeRules">I agree to the rules and regulations</label>
+                </div>
+
+                <button type="submit" class="btn">Register Now</button>
+            </form>
+            <p class="toggle-text" onclick="switchView('login')">Already have an account? Login</p>
         </div>
-        
-        <p><em>Note: Since there is no database, please check your WhatsApp for real-time order details.</em></p>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view">
+            <div class="header">
+                <h2 id="welcomeMsg">Welcome!</h2>
+                <span id="roleBadge" class="role-badge">Role</span>
+            </div>
+            <div class="dashboard-card">
+                <p>You are successfully logged into the system.</p>
+                <br>
+                <p>Shop Name: <strong>Ru Online Store Dropshipping</strong></p>
+                <br>
+                <button class="btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
     </div>
+
+    <div id="toast"></div>
+
+    <script>
+        // --- 1. Background Animation (Fire and Smoke Particles) ---
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 100;
+                this.size = Math.random() * 15 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * -3 - 1; // Move up
+                this.color = Math.random() > 0.5 ? 'rgba(255, 77, 77, ' : 'rgba(255, 159, 67, '; // Red or Orange
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.size > 0.2) this.size -= 0.1; // Shrink
+                if (this.alpha > 0) this.alpha -= 0.005; // Fade out
+            }
+            draw() {
+                ctx.fillStyle = this.color + this.alpha + ')';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function handleParticles() {
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                if (particlesArray[i].size <= 0.3 || particlesArray[i].alpha <= 0) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Add new particles
+            if (particlesArray.length < 150) {
+                particlesArray.push(new Particle());
+            }
+            handleParticles();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // --- 2. Application Logic ---
+
+        // Pre-defined Admin/Reseller Database
+        const usersDB = {
+            'kaawya': { pass: 'kaawya123', role: 'Owner' },
+            'sadaru': { pass: 'sadaru123', role: 'Admin' },
+            'nisha': { pass: 'nisha123', role: 'Manager' },
+            'reseller1': { pass: 'pass123', role: 'Reseller' },
+            'reseller2': { pass: 'pass123', role: 'Reseller' },
+            'reseller3': { pass: 'pass123', role: 'Reseller' },
+            'reseller4': { pass: 'pass123', role: 'Reseller' },
+            'reseller5': { pass: 'pass123', role: 'Reseller' },
+            'reseller6': { pass: 'pass123', role: 'Reseller' },
+            'reseller7': { pass: 'pass123', role: 'Reseller' },
+            'reseller8': { pass: 'pass123', role: 'Reseller' },
+            'reseller9': { pass: 'pass123', role: 'Reseller' },
+            'reseller10': { pass: 'pass123', role: 'Reseller' },
+            'reseller11': { pass: 'pass123', role: 'Reseller' },
+            'reseller12': { pass: 'pass123', role: 'Reseller' },
+            'reseller13': { pass: 'pass123', role: 'Reseller' },
+            'reseller14': { pass: 'pass123', role: 'Reseller' }
+        };
+
+        // Helper: Show Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            toast.innerText = message;
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        // Helper: Switch Views
+        function switchView(view) {
+            document.getElementById('login-view').style.display = 'none';
+            document.getElementById('register-view').style.display = 'none';
+            document.getElementById('dashboard-view').style.display = 'none';
+
+            if (view === 'login') document.getElementById('login-view').style.display = 'block';
+            if (view === 'register') document.getElementById('register-view').style.display = 'block';
+            if (view === 'dashboard') document.getElementById('dashboard-view').style.display = 'block';
+        }
+
+        // --- 3. Registration Logic ---
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get Values
+            const fname = document.getElementById('regFirstName').value;
+            const lname = document.getElementById('regLastName').value;
+            const email = document.getElementById('regEmail').value;
+            const whatsapp = document.getElementById('regWhatsapp').value;
+            const age = document.getElementById('regAge').value;
+            const district = document.getElementById('regDistrict').value;
+            const payment = document.getElementById('regPayment').value;
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+
+            // Construct Message
+            const message = `*New Registration - Ru Online Store*%0A` +
+                             `------------------------%0A` +
+                             `Name: ${fname} ${lname}%0A` +
+                             `Email: ${email}%0A` +
+                             `WhatsApp: ${whatsapp}%0A` +
+                             `Age: ${age}%0A` +
+                             `District: ${district}%0A` +
+                             `Payment: ${payment}%0A` +
+                             `Username: ${username}%0A` +
+                             `Password: ${password}%0A` +
+                             `------------------------%0A` +
+                             `Please verify this account.`;
+
+            // Send WhatsApp
+            const waNumber = "94775048455"; // 0775048455 converted to international format
+            const url = `https://wa.me/${waNumber}?text=${message}`;
+            
+            // Simulate saving to local DB for session purposes (Optional)
+            usersDB[username] = { pass: password, role: 'Reseller' };
+
+            showToast("Registration Successful! Sending data to WhatsApp...");
+            
+            setTimeout(() => {
+                window.open(url, '_blank');
+                switchView('login'); // Redirect to login after sending
+            }, 1500);
+        });
+
+        // --- 4. Login Logic ---
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const u = document.getElementById('loginUsername').value.trim();
+            const p = document.getElementById('loginPassword').value.trim();
+
+            if (usersDB[u] && usersDB[u].pass === p) {
+                // Successful Login
+                document.getElementById('welcomeMsg').innerText = `Welcome, ${u}!`;
+                document.getElementById('roleBadge').innerText = usersDB[u].role;
+                showToast(`Logged in as ${usersDB[u].role}`);
+                switchView('dashboard');
+            } else {
+                showToast("Invalid Username or Password");
+            }
+        });
+
+        function logout() {
+            document.getElementById('loginForm').reset();
+            switchView('login');
+            showToast("Logged Out");
+        }
+    </script>
 </body>
 </html>
