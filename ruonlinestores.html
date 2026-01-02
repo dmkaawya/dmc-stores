@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ru Online stores - Neon Store</title>
+    <title>RU Online stores - Neon Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -12,6 +12,7 @@
             --neon-red: #ff0055;
             --neon-blue: #00e5ff;
             --neon-purple: #bc13fe;
+            --neon-green: #39ff14;
             --bg-dark: #050505;
             --card-bg: rgba(20, 20, 20, 0.7);
             --text-main: #ffffff;
@@ -506,37 +507,40 @@
                     </div>
                 </div>
 
-              <!-- STEP 2: CHECKOUT FORM -->
-<div id="stepCheckout" class="checkout-step">
-    <div style="text-align:right; margin-bottom:15px;">
-        <span style="cursor:pointer; color:var(--neon-blue); font-size:14px;" onclick="backToCart()"><i class="fas fa-arrow-left"></i> Back to Cart</span>
-    </div>
-    <div class="form-grid">
-        <div>
-            <h3 style="color:white; margin-bottom:20px; font-family:'Orbitron';">Shipping Info</h3>
-            <div class="form-group"><label>Name *</label><input type="text" class="form-control" id="cusName"></div>
-            <div class="form-group"><label>Address *</label><textarea class="form-control" id="cusAddress" rows="2"></textarea></div>
-            <div class="form-group"><label>Phone (Work) *</label><input type="tel" class="form-control" id="cusPhone"></div>
-            <div class="form-group"><label>Alt Phone (2nd)</label><input type="tel" class="form-control" id="cusPhone2"></div>
-            <div class="form-group"><label>District *</label><select class="form-control" id="cusDistrict"><option value="">Select</option><option>Kalutara</option><option>Kurunegala</option><option>Colombo</option><option>Anuradhapura</option><option>Gampaha</option><option>Kandy</option><option>Matale</option><option>Nuwara Eliya</option><option>Galle</option><option>Matara</option><option>Hambantota</option><option>Ratnapura</option><option>Polonnaruwa</option><option>Badulla</option><option>Moneragala</option><option>Kegalle</option><option>Ampara</option><option>Batticaloa</option><option>Trincomalee</option><option>Jaffna</option><option>Kilinochchi</option><option>Mannar</option><option>Vavuniya</option><option>Mullaitivu</option><option>Puttalam</option><option>Other</option></select></div>
-            <div class="form-group"><label>Email</label><input type="email" class="form-control" id="cusEmail"></div>
-            <!-- NEW: Reseller Number Field -->
-            <div class="form-group"><label>Reseller Number (Optional)</label><input type="text" class="form-control" id="resellerNumber"></div>
-        </div>
-        <div>
-            <h3 style="color:white; margin-bottom:20px; font-family:'Orbitron';">Payment</h3>
-            <div class="form-group"><label>Method</label><select class="form-control" id="payMethod"><option value="COD">Cash on Delivery</option><option value="Bank">Bank Deposit</option></select></div>
-            <div class="form-group"><label>Applied Promo</label><input type="text" class="form-control" id="appliedPromoDisplay" readonly style="background:#222; color:#aaa;"></div>
-            <div style="background:#1a0510; padding:15px; border-radius:10px; border:1px solid #330011;">
-                <div style="display:flex; gap:10px; margin-bottom:15px;"><input type="checkbox" id="agreeRules"><label for="agreeRules" style="color:#ccc; font-size:12px;">I agree to Terms & Conditions</label></div>
-                <!-- NEW: Total Profit Display -->
-                <div class="summary-row"><span>Total Profit:</span><span style="font-size:20px; color:var(--neon-green);">Rs. <span id="totalProfit">0.00</span></span></div>
-                <div class="summary-row"><span>Total To Pay:</span><span class="summary-total" style="margin-top:0; font-size:20px;">Rs. <span id="finalTotalConfirm">0.00</span></span></div>
-                <button class="btn btn-buy" style="width:100%; margin-top:10px;" onclick="confirmOrder()">Confirm Order <i class="fab fa-whatsapp"></i></button>
+                <!-- STEP 2: CHECKOUT FORM -->
+                <div id="stepCheckout" class="checkout-step">
+                    <div style="text-align:right; margin-bottom:15px;">
+                        <span style="cursor:pointer; color:var(--neon-blue); font-size:14px;" onclick="backToCart()"><i class="fas fa-arrow-left"></i> Back to Cart</span>
+                    </div>
+                    <div class="form-grid">
+                        <div>
+                            <h3 style="color:white; margin-bottom:20px; font-family:'Orbitron';">Shipping Info</h3>
+                            <div class="form-group"><label>Name *</label><input type="text" class="form-control" id="cusName"></div>
+                            <div class="form-group"><label>Address *</label><textarea class="form-control" id="cusAddress" rows="2"></textarea></div>
+                            <div class="form-group"><label>Phone (Work) *</label><input type="tel" class="form-control" id="cusPhone"></div>
+                            <div class="form-group"><label>Alt Phone (2nd)</label><input type="tel" class="form-control" id="cusPhone2"></div>
+                            <div class="form-group"><label>District *</label><select class="form-control" id="cusDistrict"><option value="">Select</option><option>Kalutara</option><option>Kurunegala</option><option>Colombo</option><option>Anuradhapura</option><option>Gampaha</option><option>Kandy</option><option>Matale</option><option>Nuwara Eliya</option><option>Galle</option><option>Matara</option><option>Hambantota</option><option>Ratnapura</option><option>Polonnaruwa</option><option>Badulla</option><option>Moneragala</option><option>Kegalle</option><option>Ampara</option><option>Batticaloa</option><option>Trincomalee</option><option>Jaffna</option><option>Kilinochchi</option><option>Mannar</option><option>Vavuniya</option><option>Mullaitivu</option><option>Puttalam</option><option>Other</option></select></div>
+                            <div class="form-group"><label>Email</label><input type="email" class="form-control" id="cusEmail"></div>
+                            <!-- Reseller Fields -->
+                            <div class="form-group"><label>Reseller Number (Optional)</label><input type="text" class="form-control" id="resellerNumber"></div>
+                        </div>
+                        <div>
+                            <h3 style="color:white; margin-bottom:20px; font-family:'Orbitron';">Payment</h3>
+                            <div class="form-group"><label>Method</label><select class="form-control" id="payMethod"><option value="COD">Cash on Delivery</option><option value="Bank">Bank Deposit</option></select></div>
+                            <div class="form-group"><label>Reseller Profit (Rs.)</label><input type="number" class="form-control" id="resellerProfit" min="0" step="1" value="0"></div>
+                            <div class="form-group"><label>Applied Promo</label><input type="text" class="form-control" id="appliedPromoDisplay" readonly style="background:#222; color:#aaa;"></div>
+                            <div style="background:#1a0510; padding:15px; border-radius:10px; border:1px solid #330011;">
+                                <div style="display:flex; gap:10px; margin-bottom:15px;"><input type="checkbox" id="agreeRules"><label for="agreeRules" style="color:#ccc; font-size:12px;">I agree to Terms & Conditions</label></div>
+                                <div class="summary-row"><span>Total Profit:</span><span style="font-size:20px; color:var(--neon-green);">Rs. <span id="totalProfit">0.00</span></span></div>
+                                <div class="summary-row"><span>Total To Pay:</span><span class="summary-total" style="margin-top:0; font-size:20px;">Rs. <span id="finalTotalConfirm">0.00</span></span></div>
+                                <button class="btn btn-buy" style="width:100%; margin-top:10px;" onclick="confirmOrder()">Confirm Order <i class="fab fa-whatsapp"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <div id="toast">Message</div>
 
@@ -557,9 +561,36 @@
         let cart = JSON.parse(localStorage.getItem('laabaCart')) || [];
         let appliedPromo = null; 
 
+        // New function to update checkout summary with reseller profit
+        function updateCheckoutSummary() {
+            let subtotal = 0;
+            cart.forEach(item => {
+                subtotal += item.price * item.qty;
+            });
+            const delivery = subtotal > 5000 ? 0 : 500;
+            const tax = Math.round(subtotal * 0.05);
+            let discountAmount = 0;
+            if (appliedPromo) {
+                discountAmount = Math.round((subtotal + delivery + tax) * (appliedPromo.discount / 100));
+            }
+            const baseTotal = subtotal + delivery + tax - discountAmount;
+            const profit = parseFloat(document.getElementById('resellerProfit').value) || 0;
+            const customerTotal = baseTotal + profit;
+
+            document.getElementById('totalProfit').innerText = profit.toFixed(2);
+            document.getElementById('finalTotalConfirm').innerText = customerTotal.toFixed(2);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts();
             updateCartCount();
+
+            // Event listener for profit input
+            const profitInput = document.getElementById('resellerProfit');
+            if (profitInput) {
+                profitInput.addEventListener('input', updateCheckoutSummary);
+                profitInput.addEventListener('change', updateCheckoutSummary);
+            }
         });
 
         function renderProducts() {
@@ -600,6 +631,10 @@
         }
 
         // --- Product Modal Logic (Updated UI) ---
+        let currentViewProduct = null;
+        let currentVariantIndex = 0;
+        let currentSize = null;
+
         function openProductModal(id) {
             currentViewProduct = products.find(p => p.id === id);
             currentVariantIndex = 0;
@@ -626,7 +661,6 @@
             document.getElementById('longDesc').innerText = p.longDesc;
             document.getElementById('deliveryDate').innerText = p.deliveryDays;
 
-            // Update Images (Main + Thumbs)
             const mainImg = document.getElementById('detailMainImg');
             mainImg.src = v.img;
             
@@ -635,13 +669,11 @@
                 `<img src="${i===0?v.img:img}" class="thumb-img ${i===0?'active':''}" onclick="changeMainImage('${i===0?v.img:img}', this)">`
             ).join('');
 
-            // Update Sizes
             const sizeCont = document.getElementById('sizeContainer');
             sizeCont.innerHTML = p.sizes.map(s => 
                 `<div class="size-box-new ${s===currentSize?'selected':''}" onclick="selectSize('${s}')">${s}</div>`
             ).join('');
 
-            // Update Colors
             const colorCont = document.getElementById('colorContainer');
             colorCont.innerHTML = p.variants.map((cv, i) => 
                 `<div class="color-circle-new ${i===currentVariantIndex?'selected':''}" style="background:${cv.hex};" onclick="selectVariant(${i})"></div>`
@@ -739,19 +771,18 @@
             if (appliedPromo) { discountAmount = Math.round((subtotal + delivery + tax) * (appliedPromo.discount / 100)); }
             const final = subtotal + delivery + tax - discountAmount;
 
-            document.getElementById('sumSubtotal').innerText = `Rs. ${subtotal}`;
-            document.getElementById('sumDelivery').innerText = delivery === 0 ? "Free" : `Rs. ${delivery}`;
-            document.getElementById('sumTax').innerText = `Rs. ${tax}`;
+            document.getElementById('sumSubtotal').innerText = `Rs. ${subtotal.toFixed(2)}`;
+            document.getElementById('sumDelivery').innerText = delivery === 0 ? "Free" : `Rs. ${delivery.toFixed(2)}`;
+            document.getElementById('sumTax').innerText = `Rs. ${tax.toFixed(2)}`;
             if(appliedPromo) {
                 document.getElementById('promoRow').style.display = 'flex';
-                document.getElementById('sumDiscount').innerText = `-Rs. ${discountAmount}`;
+                document.getElementById('sumDiscount').innerText = `-Rs. ${discountAmount.toFixed(2)}`;
                 document.getElementById('appliedPromoDisplay').value = appliedPromo.code;
             } else {
                 document.getElementById('promoRow').style.display = 'none';
                 document.getElementById('appliedPromoDisplay').value = "None";
             }
-            document.getElementById('sumTotal').innerText = final;
-            document.getElementById('finalTotalConfirm').innerText = final;
+            document.getElementById('sumTotal').innerText = final.toFixed(2);
         }
 
         function updateQty(index, change) {
@@ -782,39 +813,72 @@
             document.getElementById('modalTitle').innerText = "Checkout";
             document.getElementById('stepCart').classList.remove('active');
             document.getElementById('stepCheckout').classList.add('active');
+            updateCheckoutSummary(); // Update totals with profit
         }
 
         function backToCart() {
             document.getElementById('modalTitle').innerText = "Your Cart";
             document.getElementById('stepCheckout').classList.remove('active');
             document.getElementById('stepCart').classList.add('active');
+            renderCartList();
         }
 
         function confirmOrder() {
-            const name = document.getElementById('cusName').value;
-            const address = document.getElementById('cusAddress').value;
-            const phone = document.getElementById('cusPhone').value;
+            const name = document.getElementById('cusName').value.trim();
+            const address = document.getElementById('cusAddress').value.trim();
+            const phone = document.getElementById('cusPhone').value.trim();
             const district = document.getElementById('cusDistrict').value;
             const agree = document.getElementById('agreeRules').checked;
             if(!name || !address || !phone || !district) { showToast("Fill Required Fields!"); return; }
             if(!agree) { showToast("Agree to Terms!"); return; }
 
-            let msg = `*NEW ORDER - Laaba Kade*\n\n*Customer:* ${name}\n*Phone:* ${phone} (Alt: ${document.getElementById('cusPhone2').value})\n*Address:* ${address}, ${district}\n\n*Items:*\n`;
+            updateCheckoutSummary(); // Final update
+
             let subtotal = 0;
-            cart.forEach((item, i) => {
-                const itemTotal = item.price * item.qty;
-                subtotal += itemTotal;
-                msg += `${i+1}. ${item.name} (${item.variant}, ${item.size}) x${item.qty} - Rs. ${itemTotal}\n`;
-            });
+            cart.forEach(item => subtotal += item.price * item.qty);
+
             const delivery = subtotal > 5000 ? 0 : 500;
             const tax = Math.round(subtotal * 0.05);
             let discountAmount = 0;
-            if(appliedPromo) discountAmount = Math.round((subtotal + delivery + tax) * (appliedPromo.discount/100));
-            const final = subtotal + delivery + tax - discountAmount;
-            msg += `\n*Payment:* ${document.getElementById('payMethod').value}\n`;
-            if(appliedPromo) msg += `*Promo:* ${appliedPromo.code}\n`;
-            msg += `*Total: Rs. ${final}*\n`;
+            if (appliedPromo) discountAmount = Math.round((subtotal + delivery + tax) * (appliedPromo.discount / 100));
+
+            const baseTotal = subtotal + delivery + tax - discountAmount;
+            const profit = parseFloat(document.getElementById('resellerProfit').value) || 0;
+            const customerTotal = baseTotal + profit;
+
+            const resellerNo = document.getElementById('resellerNumber').value.trim();
+            const payMethod = document.getElementById('payMethod').value;
+            const phone2 = document.getElementById('cusPhone2').value.trim();
+
+            let msg = `*NEW ORDER - RU Online Stores*\n\n`;
+            msg += `*Customer:* ${name}\n`;
+            msg += `*Phone:* ${phone}`;
+            if (phone2) msg += ` (Alt: ${phone2})`;
+            msg += `\n*Address:* ${address}, ${district}\n\n`;
+            msg += `*Items:*\n`;
+            cart.forEach((item, i) => {
+                const itemTotal = item.price * item.qty;
+                msg += `${i+1}. ${item.name} (${item.variant} | ${item.size}) x${item.qty} - Rs. ${itemTotal.toFixed(2)}\n`;
+            });
+
+            msg += `\n*Summary:*\n`;
+            msg += `Subtotal: Rs. ${subtotal.toFixed(2)}\n`;
+            msg += `Delivery: ${delivery === 0 ? "Free" : "Rs. " + delivery.toFixed(2)}\n`;
+            msg += `Tax: Rs. ${tax.toFixed(2)}\n`;
+            if (appliedPromo) msg += `Discount (${appliedPromo.code}): -Rs. ${discountAmount.toFixed(2)}\n`;
+            msg += `Base Total: Rs. ${baseTotal.toFixed(2)}\n`;
+
+            if (resellerNo || profit > 0) {
+                msg += `\n*Reseller Info:*\n`;
+                if (resellerNo) msg += `Number: ${resellerNo}\n`;
+                msg += `Profit: Rs. ${profit.toFixed(2)}\n`;
+            }
+
+            msg += `\n*Total Amount (Customer Pay): Rs. ${customerTotal.toFixed(2)}*\n`;
+            msg += `*Payment:* ${payMethod}\n`;
+
             window.open(`https://wa.me/94775048455?text=${encodeURIComponent(msg)}`, '_blank');
+            showToast("Order Sent via WhatsApp!");
         }
 
         function submitReport() {
@@ -822,7 +886,7 @@
             const proof = document.getElementById('reportProof').value;
             const p = currentViewProduct;
             if(!reason) { showToast("Enter reason"); return; }
-            let msg = `*REPORT ISSUE - Laaba Kade*\n\n*Product:* ${p.name}\n*Issue:* ${reason}\n`;
+            let msg = `*REPORT ISSUE - RU Online Stores*\n\n*Product:* ${p.name}\n*Issue:* ${reason}\n`;
             if(proof) msg += `*Proof URL:* ${proof}\n`;
             msg += `\nSent from Online Store`;
             window.open(`https://wa.me/94775048455?text=${encodeURIComponent(msg)}`, '_blank');
@@ -837,7 +901,10 @@
             const x = document.getElementById("toast"); x.innerText = msg; x.className = "show";
             setTimeout(() => x.className = x.className.replace("show", ""), 3000);
         }
-        function toggleReport() { const f = document.getElementById('reportForm'); f.style.display = f.style.display === 'block' ? 'none' : 'block'; }
+        function toggleReport() { 
+            const f = document.getElementById('reportForm'); 
+            f.style.display = f.style.display === 'block' ? 'none' : 'block'; 
+        }
     </script>
 </body>
 </html>
