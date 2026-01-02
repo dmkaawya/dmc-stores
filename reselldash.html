@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resell Karana Dashboard</title>
+    <title>Resell Dashboard</title>
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -277,7 +277,7 @@
         <div class="glow-blob blob-water"></div>
         
         <div class="login-card">
-            <div class="login-logo"><i class="fa-solid fa-cube"></i> Resell Karana</div>
+            <div class="login-logo"><i class="fa-solid fa-cube"></i> Resell dashboard</div>
             <p style="color: var(--text-muted); margin-bottom: 20px;">Super Admin & Reseller Dashboard</p>
             
             <form class="login-form" onsubmit="handleLogin(event)">
@@ -286,7 +286,8 @@
                 <button type="submit" class="btn-login">LOGIN</button>
             </form>
             <p style="margin-top: 15px; font-size: 0.8rem; color: var(--text-muted);">
-                Owner: admin1/admin123 | Reseller: reseller1/pass123
+                Use the username and password provided during registration.
+If you have any questions, please contact 077 504 8455.
             </p>
         </div>
     </section>
@@ -307,7 +308,7 @@
             <!-- Sidebar -->
             <aside class="sidebar" id="sidebar">
                 <div class="brand">
-                    <i class="fa-solid fa-fire"></i> Resell Karana
+                    <i class="fa-solid fa-fire"></i> Resell
                 </div>
                 <ul class="nav-links">
                     <li class="nav-item">
@@ -535,9 +536,9 @@
         // Users Data (Expanded)
         const users = [];
         // Admins
-        users.push({user: 'admin1', pass: 'admin123', role: 'Owner', name: 'Owner Admin', district: 'Colombo', bank: 'BOC', branch: 'Head Office', accName: 'Owner Admin', accNum: '1234567890', balance: 50000, totalProfit: 150000});
-        users.push({user: 'admin2', pass: 'admin123', role: 'Manager', name: 'Manager Jay', district: 'Gampaha', bank: 'Sampath', branch: 'Kandy Rd', accName: 'Manager Jay', accNum: '2233445566', balance: 12000, totalProfit: 45000});
-        users.push({user: 'admin3', pass: 'admin123', role: 'Admin', name: 'Support Kamal', district: 'Kandy', bank: 'NSB', branch: 'Dalada', accName: 'Support Kamal', accNum: '9988776655', balance: 5000, totalProfit: 15000});
+        users.push({user: 'kaawya', pass: 'kaawya123', role: 'Owner', name: 'Owner D.M.Kaawya', district: 'kaluthara', bank: 'NSB', branch: 'Kalutara', accName: 'kaawya chandrasekara', accNum: '00000000', balance: 0, totalProfit: 0});
+        users.push({user: 'menu', pass: 'menuri', role: 'Manager', name: 'Manager Menuri', district: 'kurunagala', bank: 'Sampath', branch: 'kurunagala', accName: 'pending', accNum: '0000000', balance: 0, totalProfit: 0});
+        users.push({user: 'sadaru1', pass: 'sadaru123', role: 'Admin', name: 'Support Sadaru', district: 'kaluthara', bank: 'NSB', branch: 'kalutara', accName: 'pending', accNum: '000000000', balance: 0, totalProfit: 0});
         
         // Resellers (Loop to create 14 with some mock data)
         for(let i=1; i<=14; i++){
@@ -586,10 +587,10 @@
 
         // Finance Transactions Data (Assigned to users)
         const transactions = [
-            {userId: 'reseller1', id: 'TXN-001', date: '2023-10-01 10:30 AM', profit: 4500, status: 'Withdrawn'},
-            {userId: 'reseller1', id: 'TXN-002', date: '2023-09-25 02:15 PM', profit: 3000, status: 'Withdrawn'},
-            {userId: 'reseller2', id: 'TXN-003', date: '2023-09-15 09:00 AM', profit: 7000, status: 'Withdrawn'},
-             {userId: 'admin1', id: 'TXN-OWN-01', date: '2023-10-01 11:00 AM', profit: 15000, status: 'Withdrawn'}
+            {userId: 'reseller1', id: 'TXN-001', date: '2026-01-01 10:30 AM', profit: 0, status: 'Withdrawn'},
+            {userId: 'reseller1', id: 'TXN-002', date: '2026-01-01 10:30 AM', profit: 0, status: 'Withdrawn'},
+            {userId: 'reseller2', id: 'TXN-003', date: '2026-01-01 10:30 AM', profit: 0, status: 'Withdrawn'},
+             {userId: 'admin1', id: 'TXN-OWN-01', date: '2026-01-01 10:30 AM', profit: 0, status: 'Withdrawn'}
         ];
 
         // --- Functions ---
